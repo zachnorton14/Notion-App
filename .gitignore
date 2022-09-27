@@ -2,6 +2,7 @@
 
 # dependencies
 notion-app/node_modules
+notion-app-api/venv
 /.pnp
 .pnp.js
 
