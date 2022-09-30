@@ -12,8 +12,11 @@ function Login(){
     async function handleSubmit(e){
         e.preventDefault()
 
-        const response = await fetch(`http://127.0.0.1:5000/users/`,{
+        // console.log(JSON.stringify(user))
+
+        const response = await fetch(`http://localhost:5000/users/`,{
             method: 'POST',
+            // credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -34,21 +37,23 @@ function Login(){
     return(
         <main>
             <h1>Login</h1>
-            <form onSubmit={handleSubmit} className="loginform">
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="username"></label>
                 <input 
                     type="text"
                     required
-                    value={user.name}
+                    value={user.username}
                     onChange={e => setUser({...user, username: e.target.value})}
                     id="userName"
                     name="userName"
                     placeholder='Username'
                     autoFocus
                 />
+                <label htmlFor="password"></label>
                 <input 
                     type="password"
                     required
-                    value={user.rating}
+                    value={user.password}
                     onChange={e => setUser({...user, password: e.target.value})}
                     id="password"
                     name="password"
@@ -57,7 +62,6 @@ function Login(){
                 <input type="submit" value="Log in"/>
             </form>
             <p>Don't have an account? Sign up <a href="/signup">here</a></p>
-    
         </main>
     )
 }
