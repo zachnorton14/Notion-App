@@ -9,7 +9,7 @@ class ApplicationConfig:
     
     CORS_HEADERS = 'Content-Type'
     SECRET_KEY = 'asdasdjkasdbkja'
-    SESSION_COOKIE_PATH = '/'
+    # SESSION_COOKIE_PATH = '/'
 
     SESSION_TYPE = 'redis'
     SESSION_PERMANENT = False

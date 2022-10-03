@@ -20,7 +20,7 @@ function NavBar() {
     if (currentUser) {
         loginActions = (
             <li style={{ float: 'right' }}>
-                Logged in as {currentUser.firstName} {currentUser.lastName}
+                Logged in as {currentUser.username}
             </li>
         )
     }

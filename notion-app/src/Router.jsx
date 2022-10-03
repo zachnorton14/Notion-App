@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Home from './components/Home'
-import Error404 from './Error404';
+import NotFound from './NotFound';
 import Dashboard from './components/Dashboard';
 import NoteView from './components/NoteView';
 import Login from './components/Login';
@@ -20,7 +20,7 @@ function App() {
           <Route exact path="/profile" element={<Dashboard />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
-          <Route path="/" element={<Error404 />} />
+          <Route element={<NotFound />} />
         </Routes>
       </Router>
     </CurrentUserProvider>

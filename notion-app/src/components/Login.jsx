@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CurrentUser } from '../contexts/CurrentUser'
+import httpClient from "../httpClient"
 
 function Login(){
 
     const navigate = useNavigate()
 
     const [credentials, setCredentials] = useState({
-        username: '',
+        email: '',
         password: ''
     })
 
@@ -20,40 +21,37 @@ function Login(){
     async function handleSubmit(e){
         e.preventDefault()
 
-        const response = await fetch(`http://localhost:5000/authentication`,{
-            method: 'POST',
-            // credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-        })
-
-        const data = await response.json()
-        
-        if (response.status === 200) {
-            setMessage(data.message)
-            setCurrentUser(JSON.parse(data.user))
-            navigate('/dashboard')
-        } else {
-            setMessage(data.message)
-            setAnError(true)
+        try {
+            const response = await httpClient.post("//localhost:5000/authentication", credentials)
+            if (response.status === 200) {
+                setMessage(response.data.message)
+                setCurrentUser(response.data.user)
+                navigate('/dashboard')
+            }
+        } catch (error){
+            if (error.response.status === 401) {
+                console.error(error)
+                setMessage(data.error)
+                setAnError(true)
+                throw "Invalid credentials"
+            }
         }
     }
+        
 
     return(
         <main>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="username"></label>
+                <label htmlFor="email"></label>
                 <input 
-                    type="text"
+                    type="email"
                     required
-                    value={credentials.username}
-                    onChange={e => setCredentials({...credentials, username: e.target.value})}
-                    id="userName"
-                    name="userName"
-                    placeholder='Username'
+                    value={credentials.email}
+                    onChange={e => setCredentials({...credentials, email: e.target.value})}
+                    id="email"
+                    name="email"
+                    placeholder='Email'
                     autoFocus
                 />
                 <label htmlFor="password"></label>
@@ -81,4 +79,4 @@ function Login(){
     )
 }
 
-export default Login
+export default Login;
