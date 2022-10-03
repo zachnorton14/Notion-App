@@ -1,14 +1,24 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
- 
+import { CurrentUser } from '../contexts/CurrentUser'
+import NavBar from './NavBar'
+
 function Home() {
 
+    const { currentUser } = useContext(CurrentUser)
+
     return (
-        <div>
-            <h1>home</h1>
-            <Link to="/dashboard"><button>Dashboard</button></Link>
-            <Link to="/login"><button>Log in</button></Link>
-            <Link to="/signup"><button>Sign up</button></Link>
-        </div>
+        <main>
+            <NavBar />
+            <h1>iArchive</h1>
+            
+            <Link to="/dashboard"><button>Enter</button></Link>
+            <section>
+                <h2>About</h2>
+
+            </section>
+            
+        </main>
     )
 }
 

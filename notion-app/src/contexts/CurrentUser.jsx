@@ -11,9 +11,9 @@ function CurrentUserProvider({ children }){
         const getLoggedInUser = async () => {
             try {
                 const response = await httpClient.get(`//localhost:5000/@me`)
-                console.log(response)
                 if (response.status === 200){
-                    setCurrentUser(response.data.user)
+                    setCurrentUser(response.data.user[0])
+                    
                 }
             } catch (error) {
                 if (error.response.status === 401) {

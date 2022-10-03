@@ -31,7 +31,7 @@ function Login(){
         } catch (error){
             if (error.response.status === 401) {
                 console.error(error)
-                setMessage(data.error)
+                setMessage(error)
                 setAnError(true)
                 throw "Invalid credentials"
             }
