@@ -12,7 +12,7 @@ function NavBar() {
             let response = await httpClient.post('//localhost:5000/users/logout', currentUser)
             if (response.status === 200) {
                 console.log(response.data.message)
-                location.reload()
+                window.location.reload()
             }
         } catch (error){
             if (error.response.status === 401) {

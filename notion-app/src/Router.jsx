@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom'
+import './css/App.css';
 import Home from './components/Home'
 import NotFound from './NotFound';
 import Dashboard from './components/Dashboard';
@@ -14,16 +15,18 @@ import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
 
   library.add(fab, faArrowLeft, faPlus)
 
-import './css/App.css';
 
 function App() {
+
+  let { folderId } = useParams()
+
   return (
     <CurrentUserProvider>
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
-          <Route exact path="/dashboard/folderID" element={<FolderView />} />
+          <Route exact path="/dashboard/:folderId" element={<FolderView />} />
           <Route exact path="/dashboard/folderID/noteID" element={<NoteView />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/login" element={<Login />} />
