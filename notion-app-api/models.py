@@ -8,18 +8,16 @@ class User(Document):
     bio = StringField(max_length=100, default='This user has not submitted a bio')
     profile_picture = StringField(default='../assets/blank-profile-picture.png')
 
-class Note(EmbeddedDocument):
-    name = StringField(max_length=144, required=True)
-    creator = ReferenceField(User)
+class Note(Document):
+    name = StringField(max_length=144, default='New note')
+    creator = StringField(required=True)
     content = StringField()
 
-    meta = {'allow_inheritance': True}
-
 class Folder(Document):
-    name = StringField(max_length=120, required=True)
-    creator = ReferenceField(User, reverse_delete_rule=CASCADE, required=True)
+    name = StringField(max_length=120, default='New folder')
+    creator = StringField(required=True)
     tags = ListField(StringField(max_length=30))
-    notes = ListField(EmbeddedDocumentField(Note))
+    is_published = BooleanField(default=False)
 
 # folder = Folder(name="notion notes", creator="zachnorton14").save()
 
