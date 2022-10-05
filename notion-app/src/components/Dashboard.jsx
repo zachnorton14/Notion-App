@@ -15,17 +15,9 @@ function Dashboard() {
 
     const navigate = useNavigate()
 
-    let noDraftFolders = (
-        <div>
-            <p>You don't have any folders yet. Click the plus to create one.</p>
-        </div>
-    )
+    let noDraftFolders = <p>You don't have any folders yet. Click the plus to create one.</p>
 
-    let noPublishedFolders = (
-        <div>
-            <p>You haven't published any folders yet. To do so, view the draft folder you would like to publish.</p>
-        </div>
-    )
+    let noPublishedFolders = <p>You haven't published any folders yet. To do so, view the draft folder you would like to publish.</p>
 
     let dynamicHeader = (
         <div>
@@ -44,32 +36,29 @@ function Dashboard() {
         </div>
     )
 
-    const draftFolders = () => {
-            personalDraftFolders.map((item, index) => {
-                console.log('test')
+    const draftFolders = personalDraftFolders.map((item, index) => {
                 return (
-                    <div className={`draftfolder${index + 1}`}>
-                        {/* <h4 onClick={navigate(`/dashboard/${item.id}`)}>{item.name}</h4> */}
+                    <div className={`draftfolder${index + 1}`} key={index}>
+                        <a href={`/dashboard/${item._id['$oid']}`}><h4>{item.name}</h4></a>
                         <ul>
                             {item.tags.forEach(element => <li>{element}</li>)}
                         </ul>
                     </div>
                 )
             })
-    }
 
-    const publishedFolders = () => {
-        personalPublishedFolders.map((item, index) => {
+
+    const publishedFolders = personalPublishedFolders.map((item, index) => {
             return (
                 <div className={`publishedfolder${index + 1}`}>
-                    {/* <h4 onClick={navigate(`/dashboard/${item.id}`)}>{item.name}</h4> */}
+                    <a href={`/dashboard/${item._id['$oid']}`}><h4>{item.name}</h4></a>
                     <ul>
                         {item.tags.forEach(element => <li>{element}</li>)}
                     </ul>
                 </div>
             )
         })
-    }
+
 
     const createFolder = async () => {
         try {
@@ -92,7 +81,7 @@ function Dashboard() {
                 const response = await httpClient.get("//localhost:5000/folder")
                 if (response.status === 200) {
                     console.log(response.data.message)
-                    console.log(response.data.folders.filter(element => element.is_published === false))
+                    // console.log(response.data.folders.filter(element => element.is_published === false))
                     setPersonalPublishedFolders(response.data.folders.filter(element => element.is_published))
                     setPersonalDraftFolders(response.data.folders.filter(element => element.is_published === false))
                 } 
@@ -117,10 +106,10 @@ function Dashboard() {
                 <p>These are the folders you have created. Click the plus button to create a new folder.</p>
                     <h3>Draft folders</h3>
                         <p>These are your draft folders. They have not been published yet. View one to publish it.</p>
-                        {personalDraftFolders.length === 0 ? noDraftFolders : draftFolders()}
+                        {personalDraftFolders.length == 0 ? noDraftFolders : draftFolders}
                         <div onClick={createFolder}><FontAwesomeIcon icon="fa-solid fa-plus"/></div>
                     <h3>Published folders</h3>
-                        {personalPublishedFolders.length === 0 ? noPublishedFolders : publishedFolders()}
+                        {personalPublishedFolders.length == 0 ? noPublishedFolders : publishedFolders}
             </div>
         )
     }

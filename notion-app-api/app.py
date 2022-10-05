@@ -113,3 +113,18 @@ def folder():
             "message": "Successfully found folder",
             "folders": folders
         }, 200
+    
+@app.route('/users/profile', methods=['GET', 'PUT'])
+def user_profile():
+    if request.method == 'GET':
+        user_id = session.get("user_id")
+
+        if not user_id:
+            return jsonify({'error':'Unauthorized'}), 401
+
+        user = json.loads(User.objects(pk=user_id).first().to_json())
+
+        return {
+            "message":"Successfully got user's profile",
+            "user": user
+        }, 200, {'ContentType':'application/json'}

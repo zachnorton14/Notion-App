@@ -6,7 +6,7 @@ class User(Document):
     password_hash = StringField()
     email = StringField(required=True, unique=True)
     bio = StringField(max_length=100, default='This user has not submitted a bio')
-    profile_picture = StringField(default='../assets/blank-profile-picture.png')
+    profile_picture = StringField(default='https://riverlegacy.org/wp-content/uploads/2021/07/blank-profile-photo.jpeg')
 
 class Note(Document):
     name = StringField(max_length=144, default='New note')
