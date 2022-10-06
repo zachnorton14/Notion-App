@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect} from "react";
 import httpClient from "../httpClient";
 
 export const CurrentUser = createContext()
@@ -9,11 +9,10 @@ function CurrentUserProvider({ children }){
 
     useEffect(() => {
         const getLoggedInUser = async () => {
+            const response = await httpClient.get(`//localhost:5000/@me`)
             try {
-                const response = await httpClient.get(`//localhost:5000/@me`)
                 if (response.status === 200){
                     setCurrentUser(response.data.user[0])
-                    
                 }
             } catch (error) {
                 if (error.response.status === 401) {
@@ -30,9 +29,10 @@ function CurrentUserProvider({ children }){
     }, [])
 
     return (
-        <CurrentUser.Provider value={{ currentUser, setCurrentUser }}>
-            {children}
-        </CurrentUser.Provider>
+            <CurrentUser.Provider value={{ currentUser, setCurrentUser }}>
+                    {children}
+            </CurrentUser.Provider>
+        
     )
 }
 

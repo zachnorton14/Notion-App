@@ -1,6 +1,6 @@
 import NavBar from "./NavBar"
 import { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { CurrentUser } from '../contexts/CurrentUser'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import httpClient from "../httpClient"
@@ -37,9 +37,13 @@ function Dashboard() {
     )
 
     const draftFolders = personalDraftFolders.map((item, index) => {
+            const redirect = () => {
+                navigate(`/dashboard/${item._id['$oid']}`, {state: { folder: item, user: currentUser }})
+            }
                 return (
                     <div className={`draftfolder${index + 1}`} key={index}>
-                        <a href={`/dashboard/${item._id['$oid']}`}><h4>{item.name}</h4></a>
+                        <FontAwesomeIcon icon="fa-solid fa-folder" />
+                        <button onClick={redirect}><h4>{item.name}</h4></button>
                         <ul>
                             {item.tags.forEach(element => <li>{element}</li>)}
                         </ul>
@@ -49,9 +53,13 @@ function Dashboard() {
 
 
     const publishedFolders = personalPublishedFolders.map((item, index) => {
+        const redirect = () => {
+            navigate(`/dashboard/${item._id['$oid']}`, {state: { folder: item, user: currentUser }})
+        }
             return (
                 <div className={`publishedfolder${index + 1}`}>
-                    <a href={`/dashboard/${item._id['$oid']}`}><h4>{item.name}</h4></a>
+                    <FontAwesomeIcon icon="fa-solid fa-folder" />
+                    <button onClick={redirect}>{item.name}</button>
                     <ul>
                         {item.tags.forEach(element => <li>{element}</li>)}
                     </ul>
@@ -64,19 +72,19 @@ function Dashboard() {
         try {
             const response = await httpClient.post("//localhost:5000/folder", currentUser)
             if (response.status === 200) {
-                console.log(response.data.message)
-                navigate(`/dashboard/${response.data.id}`)
+                console.log(response.data)
+                navigate(`/dashboard/${response.data.folder._id['$oid']}`, {state: { folder: response.data.folder, user: currentUser }})
             }
         } catch (error){
             if (error.response.status === 401) {
                 console.error(error)
-                throw "An error occured whilst trying to log user out"
+                throw "An error occured whilst trying to create new note"
             }
         }
     }
 
     useEffect(() => {
-        const getPersonalFolders = async () => {
+        const getUsersFolders = async () => {
             try {
                 const response = await httpClient.get("//localhost:5000/folder")
                 if (response.status === 200) {
@@ -88,12 +96,12 @@ function Dashboard() {
             } catch (error) {
                 if (error.response.status === 401) {
                     console.error(error)
-                    throw "Could not get user's personal folder's"
+                    throw "Could not get user's folder's"
                 }  
                 
             }
         }
-        getPersonalFolders()
+        getUsersFolders()
     }, [])
     if (currentUser !== null){
 
@@ -106,10 +114,10 @@ function Dashboard() {
                 <p>These are the folders you have created. Click the plus button to create a new folder.</p>
                     <h3>Draft folders</h3>
                         <p>These are your draft folders. They have not been published yet. View one to publish it.</p>
-                        {personalDraftFolders.length == 0 ? noDraftFolders : draftFolders}
-                        <div onClick={createFolder}><FontAwesomeIcon icon="fa-solid fa-plus"/></div>
+                        {personalDraftFolders.length === 0 ? noDraftFolders : draftFolders}
+                        <div onClick={createFolder}><FontAwesomeIcon icon="fa-solid fa-plus"/>Create a new folder</div>
                     <h3>Published folders</h3>
-                        {personalPublishedFolders.length == 0 ? noPublishedFolders : publishedFolders}
+                        {personalPublishedFolders.length === 0 ? noPublishedFolders : publishedFolders}
             </div>
         )
     }

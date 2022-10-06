@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import httpClient from '../httpClient'
 
 function Signup(){
 
@@ -18,13 +19,7 @@ function Signup(){
     async function handleSubmit(e){
         e.preventDefault()
 
-        const response = await fetch(`http://localhost:5000/users`,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-        })
+        const response = await httpClient.post(`http://localhost:5000/users`, credentials )
 
         const data = await response.json()
         

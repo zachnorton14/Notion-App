@@ -1,4 +1,5 @@
 from mongoengine import *
+import datetime
 connect('thecabinet')
 
 class User(Document):
@@ -12,12 +13,15 @@ class Note(Document):
     name = StringField(max_length=144, default='New note')
     creator = StringField(required=True)
     content = StringField()
+    date_created = DateTimeField(default=datetime.datetime.now)
+    folder_id = StringField(required=True)
 
 class Folder(Document):
     name = StringField(max_length=120, default='New folder')
     creator = StringField(required=True)
     tags = ListField(StringField(max_length=30))
     is_published = BooleanField(default=False)
+    date_created = DateTimeField(default=datetime.datetime.now)
 
 # folder = Folder(name="notion notes", creator="zachnorton14").save()
 
