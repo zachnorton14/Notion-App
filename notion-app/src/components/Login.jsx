@@ -5,18 +5,17 @@ import httpClient from "../httpClient"
 
 function Login(){
 
-    const navigate = useNavigate()
-
+    const { setCurrentUser } = useContext(CurrentUser)
+    
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
     })
-
-    const { setCurrentUser } = useContext(CurrentUser)
-
+    
     const [message, setMessage] = useState('')
-
     const [anError, setAnError] = useState(false)
+    
+    const navigate = useNavigate()
     
     async function handleSubmit(e){
         e.preventDefault()

@@ -1,7 +1,9 @@
 import React, { useContext, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { CurrentUser } from '../contexts/CurrentUser'
 import EditProfile from './EditProfile'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import httpClient from '../httpClient'
 
 function Profile() {
 
@@ -9,28 +11,61 @@ function Profile() {
 
   const [editMode, setEditMode] = useState(false)
 
+  const navigate = useNavigate()
 
+  const location = useLocation()
+
+  const user = location.state.user
+  let username = location.state.user.username
+  
   const editProfile = () => {
     setEditMode(!editMode)
   }
-
+  
   const cancelEdit = () => {
     setEditMode(false)
   }
+  
+  const deleteAccount = async () => {
+    try {
+      const response = await httpClient.delete(`//localhost:5000/users/${user?._id['$oid']}`)
+      if (response.status === 200) {
+        console.log(response.data.message)
+        navigate('/dashboard')
+        window.location.reload()
+      } 
+    } catch (error) {
+      if (error.response.status === 401) {
+        console.error(error)
+        throw "Could not delete this account"
+      }  
+      
+    }
+  }
 
+  let editProfileButton;
+
+  let deleteAccountButton;
+
+  if (username === currentUser?.username){
+    editProfileButton = <button onClick={editProfile}> Edit profile </button>
+    deleteAccountButton = <button onClick={deleteAccount}>Delete Account</button>
+  }
+  
   const profileView = (
     <div>
-      <img src={currentUser?.profile_picture} alt={`${currentUser?.username}`}></img>
-      <h1>{currentUser?.username}</h1>
-      <h3>{currentUser?.bio}</h3>
+      <img src={user?.profile_picture} alt={`${user?.username}`}></img>
+      <h1>{user?.username}</h1>
+      <h3>{user?.bio}</h3>
     </div>
   )
 
   return (
     <div>
       <a href="/dashboard"><button><FontAwesomeIcon icon="fa-solid fa-arrow-left" />  Back</button></a>
-      {editMode ? <EditProfile currentUser={currentUser}/> : profileView}
+      {editMode ? <EditProfile user={user}/> : profileView}
       {editMode ? <button onClick={cancelEdit}>Cancel</button> : <button onClick={editProfile}> Edit profile </button>}
+      {editMode ? <div></div> : <button onClick={deleteAccount}>Delete Account</button>}
   </div>
   )
 }

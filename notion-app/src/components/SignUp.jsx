@@ -13,7 +13,6 @@ function Signup(){
     })
 
     const [message, setMessage] = useState('')
-
     const [anError, setAnError] = useState(false)
     
     async function handleSubmit(e){
@@ -21,12 +20,10 @@ function Signup(){
 
         const response = await httpClient.post(`http://localhost:5000/users`, credentials )
 
-        const data = await response.json()
-        
-        if (response.ok === true) {        
+        if (response.status === 200) {        
             navigate('/dashboard')
         } else {
-            setMessage(data.error)
+            setMessage(response.data.error)
             setAnError(true)
         }
     }

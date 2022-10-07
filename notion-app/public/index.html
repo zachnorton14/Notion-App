@@ -14,6 +14,8 @@
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen|Figtree:wght@400;900">
+    <link rel="stylesheet" href="../src/scss/style.scss">
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -27,6 +29,7 @@
     <title>iArchive</title>
   </head>
   <body>
+    <main className="appcontainer">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
@@ -39,5 +42,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    </main>
   </body>
 </html>

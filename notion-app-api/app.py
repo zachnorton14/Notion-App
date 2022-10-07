@@ -29,9 +29,8 @@ def find_current_user():
         "user": user
     }
 
-@app.route('/users', methods=['POST','PUT'])
+@app.route('/users', methods=['POST'])
 def user():
-    user_id = session.get("user_id")
     if request.method == 'POST':
         newusername = request.json['username']
         newpassword = request.json['password']
@@ -49,13 +48,69 @@ def user():
 
         User(username=str(newusername), password_hash=str(hashPass), email=str(newemail)).save()
         return jsonify({"message":"Successfully added new user"}), 200
+@app.route('/users/logout', methods=['POST'])
+def logout_user():
+    if request.method == 'POST':
+        session["user_id"] = None
+
+        return jsonify({"message": "Successfully logged user out"}), 200
+
+@app.route('/users/<user_id>', methods=['DELETE', 'PUT', 'GET'])
+def delete_user(user_id):
+    if request.method == 'DELETE':
+        session_user_id = session.get("user_id")
+
+        if user_id != session_user_id:
+            return jsonify({"message": "Could not delete user"}), 401
+
+        user = json.loads(User.objects(pk=user_id).first().to_json())
+        username = user['username']
+
+        deleted_user = User.objects(pk=user_id).delete()
+
+        if deleted_user is False:
+            return jsonify({"message":"Could not delete user with given id"}), 401
+
+        session["user_id"] = None
+
+        users_folders = []
+
+        for users_folder in json.loads(Folder.objects(creator=username).all().to_json()):
+            if users_folder is None:
+                print('No folders')
+            else: 
+                users_folders.append(users_folder['_id']['$oid'])
+        
+        if users_folders is not None:
+            deleted_folder = Folder.objects(creator=username).delete()
+
+            if deleted_folder is False:
+                return jsonify({"message":"Could not delete folder with given id"}), 401
+            
+            for folder_id in users_folders:
+                deleted_notes = Note.objects(folder_id=folder_id).delete()
+
+                if deleted_notes is False:
+                    return jsonify({"message":"Successfully deleted user's account and folders"}), 200
+                
+                return { "message": "Successfully deleted user's account and its subcontent" }, 200
+
+        else: return { "message": "Successfully deleted user" }, 200
+
     if request.method == 'PUT':
         edited_username = request.json['username']
         edited_bio = request.json['bio']
         edited_profile_picture = request.json['profile_picture']
 
         if not edited_username or not edited_bio or not edited_profile_picture :
-            return jsonify({"message":"Edit fields cannot be blank"})
+            return jsonify({"message":"Edit fields cannot be blank"}), 401
+
+        user = json.loads(User.objects(pk=user_id).first().to_json())
+        username = user['username']
+
+        updated_folders = Folder.objects(creator=username).modify(set__creator=edited_username)
+        if updated_folders is False:
+            return jsonify({"message": "Couldn't update with given username"}), 401
 
         updated_user = User.objects(pk=user_id).modify(
             set__username=edited_username,
@@ -64,9 +119,20 @@ def user():
         )
 
         if updated_user is True:
-            return jsonify({"message":"Could not edit user with specified values"})
+            return jsonify({"message":"Could not edit user with specified values"}), 401
 
-        return {"message": "Successful edit"}
+        return {"message": "Successful edit"}, 200
+
+    if request.method == 'GET':
+        user = json.loads(User.objects(username=user_id).first().to_json())
+
+        if user is None:
+            return {"message":"Could not get user"}, 401
+        
+        return {
+            "message":"Successfully got user",
+            "user": user
+        }, 200
 
 
 @app.route('/authentication', methods=['POST'])
@@ -91,15 +157,8 @@ def login_authentication():
     "user": user
     }, 200, {'ContentType':'application/json'}
 
-@app.route('/users/logout', methods=['POST'])
-def delete_user():
-    if request.method == 'POST':
-        session["user_id"] = None
-
-        return jsonify({"message": "Successfully logged user out"}), 200
-
 @app.route('/folder', methods=['GET', 'POST'])
-def all_folders():
+def current_user_folders():
     if request.method == 'POST':
         username = request.json['username']
         new_folder = Folder(creator=username).save()
@@ -124,19 +183,38 @@ def all_folders():
         user = json.loads(User.objects(pk=user_id).first().to_json())
         username = user['username']
 
+        if user is None:
+            return jsonify({"message":"Could not get user"}), 401
+
         folders = []
 
         for folder in json.loads(Folder.objects(creator=username).all().to_json()):
             folders.append(folder)
 
         if folders is None:
-            return jsonify({"message":"Current user hasn't created any folders"})
+            return jsonify({"message":"Current user hasn't created any folders"}), 200
 
         return {
-            "message": "Successfully deleted folder",
+            "message": "Successfully found current user's folders",
             "folders": folders
         }, 200
+
+@app.route('/folders/public', methods=['GET'])
+def public_folders():
+    if request.method == 'GET':
+        all_published_folders = []
+
+        for folder in json.loads(Folder.objects(is_published=True).all().to_json()):
+            all_published_folders.append(folder)
     
+        if all_published_folders is None:
+            return jsonify({"message":"Could not get published folders"}), 401
+        
+        return {
+            "message":"Successfully got all public folders",
+            "folders": all_published_folders
+        }
+
 @app.route('/folder/<folder_id>', methods=['PUT', 'DELETE'])
 def folder(folder_id):
     if request.method == 'DELETE':
@@ -145,34 +223,46 @@ def folder(folder_id):
         print(deleted_folder)
 
         if deleted_folder is False:
-            return jsonify({"message":"Could not delete folder with given id"})
+            return jsonify({"message":"Could not delete folder with given id"}), 401
 
         deleted_notes = Note.objects(folder_id=folder_id).delete()
 
         print(deleted_notes)
 
         if deleted_notes is False:
-            return jsonify({"message":"Could not delete given folders notes"})
+            return jsonify({"message":"Could not delete given folders notes"}), 401
 
         return { "message": "Successfully found folders" }, 200
 
     if request.method == 'PUT':
-        pass
-        # edited_username = request.json['username']
-        # edited_password = request.json['password']
-        # edited_profile_picture = request.json['profile_picture']
+        edited_name = request.json['name']
 
-        # if edited_username or edited_password or edited_profile_picture is None:
-        #     return jsonify({"message":"Edit fields cannot be blank"})
+        if edited_name is None:
+            return jsonify({"message":"Edit fields cannot be blank"}), 401
 
-        # user = User.objects(pk=user_id)
-        # print(user)
+        edited_folder = Folder.objects(pk=folder_id).modify(set__name=edited_name)
+
+        if edited_folder is False:
+            return jsonify({"message":"Folder name could not be changed"}), 401
+
+        return {"message":"Successfully updated folder name"}, 200
         
+@app.route('/folder/<folder_id>/publish', methods=['GET','POST'])
+def published_folders(folder_id):
+    if request.method == 'POST':
+        published_folder = Folder.objects(pk=folder_id).modify(set__is_published=True)
+
+        if published_folder is False:
+            return jsonify({"message":"Could not publish folder"}), 401
+        
+        return {"message":"successfully published folder"}, 200
 
 @app.route('/folder/<folder_id>/note', methods=['GET', 'POST'])
 def all_notes(folder_id):
     if request.method == 'GET':
-        user_id = session.get("user_id")
+        folder = json.loads(Folder.objects(pk=folder_id).first().to_json())
+        user = json.loads(User.objects(username=folder['creator']).first().to_json())
+        user_id = user['_id']['$oid']
 
         if not user_id:
             return jsonify({'error':'Unauthorized'}), 401
@@ -186,7 +276,7 @@ def all_notes(folder_id):
             notes.append(note)
 
         if notes is None:
-            return jsonify({"message":"Current folder has no notes"})
+            return jsonify({"message":"Current folder has no notes"}), 200
 
         return {
             "message": "Successfully found notes",
@@ -198,7 +288,7 @@ def all_notes(folder_id):
         new_note = Note(creator=username, folder_id=folder_id).save()
 
         if new_note is None:
-            return jsonify({"error":"Could not create new note with given credentials"})
+            return jsonify({"error":"Could not create new note with given credentials"}), 401
 
         id = str(new_note.id)
 
@@ -206,4 +296,48 @@ def all_notes(folder_id):
             "message": "Successfully created new note",
             "id": id
         }, 200
+
+@app.route('/note/<note_id>', methods=['PUT', 'DELETE'])
+def note(note_id):
+    if request.method == 'PUT':
+        edited_name = request.json['name']
+        edited_description = request.json['description']
+
+        if not edited_name or not edited_description:
+            return jsonify({"message":"Edit fields cannot be blank"}), 401
+
+        updated_note = Note.objects(pk=note_id).modify(
+            set__name=edited_name,
+            set__description=edited_description
+        )
+
+        if updated_note is True:
+            return jsonify({"message":"Could not edit user with specified values"}), 401
+
+        return {"message": "Successful edit"}, 200
     
+    if request.method == 'DELETE':
+        deleted_note = Note.objects(pk=note_id).delete()
+
+        if deleted_note is False:
+            return jsonify({"message":"Could not delete note with given id"}), 401
+
+        return { "message": "Successfully found folders" }, 200
+
+@app.route('/note/<note_id>/content', methods=['PUT'])
+def note_content(note_id):
+    if request.method == 'PUT':
+        edit = request.json['edit']
+
+        if edit is '':
+            return jsonify({"message":"content's edit field cannot be blank"}), 401
+
+        edited_note = Note.objects(pk=note_id).modify(set__content=edit)
+
+        if edited_note is False:
+            return jsonify({"message":"Could not edit note content"}), 401
+        
+        return {"message":"successfully edited note content"}, 200
+
+
+

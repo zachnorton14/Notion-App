@@ -3,7 +3,7 @@ import httpClient from '../httpClient'
 
 export default function EditProfile(props) {
 
-    const currentUser = props.currentUser
+    const currentUser = props.user
 
     const [userProfile, setUserProfile] = useState({
         profile_picture: `${currentUser.profile_picture}`,
@@ -28,7 +28,6 @@ export default function EditProfile(props) {
     
       let editUsername = (
         <input
-          // setUserProfile({...userProfile, username: currentUser.username})
           type="text"
           defaultValue={currentUser.username}
           onChange={e => setUserProfile({...userProfile, username: e.target.value})}
@@ -41,7 +40,6 @@ export default function EditProfile(props) {
     
       let editBio = (
         <input
-          // setUserProfile({...userProfile, bio: currentUser.bio})
           type="text"
           defaultValue={currentUser.bio}
           onChange={e => setUserProfile({...userProfile, bio: e.target.value})}
@@ -55,8 +53,6 @@ export default function EditProfile(props) {
     const confirmEdit = async (e) => {
         e.preventDefault()
     
-        console.log(userProfile.profile_picture)
-    
         try {
           const response = await httpClient.put(`http://localhost:5000/users`, userProfile)
             if (response.status === 200) {
@@ -68,7 +64,7 @@ export default function EditProfile(props) {
                 console.error(error)
                 throw "An error occured whilst trying to create new note"
             }
-    }
+        }
       }
 
   return (

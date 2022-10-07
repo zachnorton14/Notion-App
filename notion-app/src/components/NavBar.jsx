@@ -1,11 +1,14 @@
 
 import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { CurrentUser } from '../contexts/CurrentUser'
 import httpClient from '../httpClient'
 
 function NavBar() {
 
     const { currentUser } = useContext(CurrentUser)
+
+    const navigate = useNavigate()
     
     const logout = async () => {
         try {
@@ -25,10 +28,13 @@ function NavBar() {
     let loginActions;
 
     if (currentUser) {
+        const redirect = () => {
+            navigate(`/profile/${currentUser._id['$oid']}`, {state: { user: currentUser }})
+        }
         loginActions = (
             <div style={{ float: 'right', display: 'flex' }}>
                 <h4 style={{ margin: 0 }}>Logged in as {currentUser.username}</h4>
-                <a href="/profile"><button>Profile</button></a>
+                <button onClick={redirect}>Profile</button>
                 <button onClick={logout}>Logout</button>
             </div>
         )

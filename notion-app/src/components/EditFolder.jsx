@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import httpClient from '../httpClient'
 
 export default function EditFolder(props) {
 
     const currentUser = props.currentUser
 
+    let navigate = useNavigate()
+
     const folder = props.folder
+    let folder_id = folder._id['$oid']
 
     const [folderPrefs, setFolderPrefs] = useState({
         name: `${folder.name}`,
-        profile_picture: folder.tags,
       })
 
     let editName = (
@@ -25,18 +28,6 @@ export default function EditFolder(props) {
           </input>
         </div>
       )
-    
-      let editTags = (
-        <input
-          type="text"
-          defaultValue={currentUser.username}
-          onChange={e => setFolderPrefs({...folderPrefs, username: e.target.value})}
-          id="editUserName"
-          name="editUserName"
-          placeholder=""
-        >
-        </input>
-      )
 
     const confirmEdit = async (e) => {
         e.preventDefault()
@@ -44,15 +35,16 @@ export default function EditFolder(props) {
         console.log(folderPrefs.profile_picture)
     
         try {
-          const response = await httpClient.put(`http://localhost:5000/users`, folderPrefs)
+          const response = await httpClient.put(`http://localhost:5000/dashboard/folder/${folder_id}`, folderPrefs)
             if (response.status === 200) {
                 console.log(response.data.message)
+                navigate(`/folder/${folder_id}`)
                 window.location.reload()
             }
         } catch (error){
             if (error.response.status === 401) {
                 console.error(error)
-                throw "An error occured whilst trying to create new note"
+                throw "Could not update folder"
             }
     }
       }
@@ -60,7 +52,6 @@ export default function EditFolder(props) {
   return (
     <div>
         {editName}
-        {editTags}
         <button onClick={confirmEdit}>Confirm</button>
     </div>
   )

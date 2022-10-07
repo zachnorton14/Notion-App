@@ -8,10 +8,10 @@ function Home() {
     const { currentUser } = useContext(CurrentUser)
 
     return (
-        <main>
+        <main className="homecontainer">
             <NavBar />
             <h1>iArchive</h1>
-            
+            <p>A place to store and share all of your notes.</p>
             <Link to="/dashboard"><button>Enter</button></Link>
             <section>
                 <h2>About</h2>

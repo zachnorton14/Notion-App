@@ -12,7 +12,8 @@ class User(Document):
 class Note(Document):
     name = StringField(max_length=144, default='New note')
     creator = StringField(required=True)
-    content = StringField()
+    description = StringField(default='This user has not created a description')
+    content = StringField(default='')
     date_created = DateTimeField(default=datetime.datetime.now)
     folder_id = StringField(required=True)
 

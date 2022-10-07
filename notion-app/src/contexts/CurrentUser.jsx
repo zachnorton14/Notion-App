@@ -9,19 +9,14 @@ function CurrentUserProvider({ children }){
 
     useEffect(() => {
         const getLoggedInUser = async () => {
-            const response = await httpClient.get(`//localhost:5000/@me`)
             try {
+                const response = await httpClient.get(`//localhost:5000/@me`)
                 if (response.status === 200){
                     setCurrentUser(response.data.user[0])
-                }
-            } catch (error) {
-                if (error.response.status === 401) {
-                    console.error(error)
-                    throw "Couldn't find a current user"
                 } else {
-                    console.error(error)
-                    throw "An unknown error occured"
+                    throw "error"
                 }
+            } catch(error){
                 
             }
         }
