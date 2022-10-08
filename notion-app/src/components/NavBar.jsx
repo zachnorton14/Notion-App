@@ -32,9 +32,11 @@ function NavBar() {
             navigate(`/profile/${currentUser._id['$oid']}`, {state: { user: currentUser }})
         }
         loginActions = (
-            <div style={{ float: 'right', display: 'flex' }}>
-                <h4 style={{ margin: 0 }}>Logged in as {currentUser.username}</h4>
-                <button onClick={redirect}>Profile</button>
+            <div className="navbarbuttonscontainer">
+                <div className="navprofilebuttons" onClick={redirect}>
+                    <img className="pnavrofilepicture" src={currentUser?.profile_picture} style={{width: '30px', height: '30px'}}></img>
+                    <p style={{ margin: 0 }}>{currentUser.username}</p>
+                </div>
                 <button onClick={logout}>Logout</button>
             </div>
         )

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { useQuill } from 'react-quilljs'
-import ReactQuill, { Quill } from 'react-quill';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'
 import httpClient from '../httpClient';
 

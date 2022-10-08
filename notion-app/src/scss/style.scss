@@ -1,21 +1,658 @@
+
+// HOME//
+
 .homecontainer {
-    h1 {
-        font-family: "Figtree";
-        font-weight: 900;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    .homesplash {
+        width: 100%;
+        height: 88vh;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        .hometitlecontainer{
+            width: 100%;
+            h1 {
+                font-family: "Figtree";
+                font-weight: 900;
+                font-size: 80px;
+                margin-bottom: 10px;
+            }
+            h3 {
+                font-family: "Figtree";
+                font-size: 30px;
+            }
+            p {
+                font-family: "Figtree";
+            }
+        }
+    }
+    .enterbuttoncontainer {
+        width: 80%;
+        margin-top: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        p {
+            max-width: 40vw;
+            color: rgb(105, 105, 105)
+        }
+        button {
+            height: 6rem;
+            width: 16rem;
+            font-family: "Figtree";
+            background-color: transparent;
+            font-size: 40px;
+            font-weight: 700;
+            border-width: 1.5px;
+            border-radius: 5px;
+        }
+    }
+    .aboutsection {
+        padding: 15px;
+        background-color: #f1d592;
+        border-radius: 10px;
+        max-width: 60%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h2 {
+            text-align: center;
+            font-size: 30px;
+            font-family: "Figtree";
+        }
+        p {
+            text-align: center;
+            width: 80%;
+            font-family: "Figtree";
+            font-size: 20px;
+        }
     }
 }
 
+// NAV
+
+nav {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    margin-top: 10px;
+    
+    .navbarbuttonscontainer {
+        display: flex;
+        justify-content: flex-end;
+        button {
+            height: 30px;
+            background-color: rgb(255, 104, 104);
+            border-style: solid;
+            border-color: rgb(255, 108, 108);
+            border-radius: 3px;
+            font-family: "Figtree";
+            font-size: 17px;
+            box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            &:hover {
+                background-color: rgb(253, 86, 86);
+            }
+        }
+        
+        .navprofilebuttons {
+            display: flex;
+            margin-right: 10px;
+            float: right;
+            &:hover {
+                p{
+                    text-decoration: underline;
+                }
+                img {
+                    border-color: #afafaf
+                }
+            }
+            img {
+                border-radius: 25px;
+                margin-right: 5px;
+                border-style: solid;
+                border-color: #d3d3d3;
+            }
+            p {
+                font-size: 17px;
+                font-family: "Figtree";
+                line-height: 1.75;
+            }
+        }
+    }
+}
+
+// DASH
+
+.dashboardcontainer {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    h1 {
+        width: 100%;
+        font-family: "Figtree";
+        font-size: 50px;
+    }
+    .personalfolderscontainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        h2 {
+            margin-top: 0;
+            width: 100%;
+            font-family: "Figtree";
+            font-size: 30px;
+        }
+        p {
+            width: 100%;
+            font-family: "Figtree";
+            font-size: 15px;
+            color: rgb(105, 105, 105)
+        }
+        #draft {
+            margin-bottom: 38px;
+        }
+        .folderscontainer {
+            box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            padding: 20px;
+            border-radius: 7px;
+            display: row;
+            flex-direction: column;
+            width: 100%;
+            h3 {
+                width: 100%;
+                margin-top: 0;
+                font-family: "Figtree";
+                font-size: 20px;
+            }
+            p {
+                width: 100%;
+                font-family: "Figtree";
+                font-size: 15px;
+                color: rgb(105, 105, 105)
+            }
+            .folderspace {
+                padding: 10px 4px 10px 4px;
+            }
+            .folders {
+                margin: 5px 2px 5px 2px;
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                .nodraftfolders{
+                    height: 40px;
+                    margin: 5px 2px 5px 2px;
+                    line-height: 2.5;
+                }
+                #folder {
+                    width: 100%;
+                    height: 40px;
+                    display: flex;
+                    margin: 5px;
+                    svg {
+                        padding: 5px;
+                        color:#f1d592;
+                        width: 30px;
+                        height: 30px;
+                    }
+                    button {
+                        font-family: "Figtree";
+                        font-size: 15px;
+                        margin-left: 10px;
+                        height: 40px;
+                        width: 100%;
+                        border-color: rgb(235, 235, 235);
+                        border-style: solid;
+                        border-radius: 3px;
+                        &:hover {
+                            background-color: rgb(235, 235, 235);
+                            text-decoration: underline;
+                        }
+                    }
+                }
+                p {
+                    width: 100%;
+                }
+            }
+            .createfoldercontainer {
+                height: 40px;
+                margin: 5px;
+                display: flex;
+                height: 30px;
+                .createbuttonspacer {
+                    padding: 5px;
+                    height: 30px;
+                    width: 30px;
+                }
+                .createfolderbutton {
+                    height: 40px;
+                    width: 100%;
+                    display: flex;
+                    margin-left: 10px;
+                    align-items: center;
+                    align-content: center;
+                    &:hover {
+                        text-decoration: underline;
+                        background-color:#f8f8f8;
+                        border-radius: 5px;
+                    }
+                    svg {
+                        width: 30px;
+                    }
+                    p {
+                        margin: 0;
+                        margin-left: 5px;
+                        line-height: 1;
+                    }
+                }
+            }  
+        }
+    }
+
+    .notloggedinheader {
+        font-family: "Figtree";
+        .notloggedin {
+            // box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 7px 0 rgba(0, 0, 0, 0.19);
+            border-radius: 7px;
+            padding: 20px;
+            background-color: rgb(255, 219, 219);
+            display: flex;
+            flex-wrap: wrap;
+            h4 {
+                margin: 10px 0 10px 0;
+                width: 100%;
+                font-size: 20px;
+            }
+            p {
+                margin: 10px 0 10px 0;
+                width: 100%;
+                font-size: 17px;
+            }
+            button{
+                margin: 10px 10px 10px 0;
+            }
+        }
+    }
+
+    .notloggedindash {
+        font-family: "Figtree";
+        h2 {
+            width: 100%;
+            font-size: 30px;
+        }
+        p {
+            font-size: 17px;
+            width: 100%;
+        }
+    }
+
+    .publicfolderscontainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        h2 {
+            width: 100%;
+            font-family: "Figtree";
+            font-size: 30px;
+        }
+        p {
+            margin-top: 0;
+            width: 100%;
+            font-size: 17px;
+            color: rgb(105, 105, 105)
+        }
+        .folderscontainer {
+            box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            padding: 20px;
+            border-radius: 7px;
+            display: row;
+            flex-direction: column;
+            width: 100%;
+            h3 {
+                width: 100%;
+                margin-top: 0;
+                font-family: "Figtree";
+                font-size: 20px;
+            }
+            p {
+                width: 100%;
+                font-size: 17px;
+                color: rgb(105, 105, 105)
+            }
+            .folderspace {
+                padding: 10px 4px 10px 4px;
+            }
+            .folders {
+                margin: 5px 2px 5px 2px;
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                #folder {
+                    width: 100%;
+                    height: 40px;
+                    display: flex;
+                    margin: 5px;
+                    svg {
+                        padding: 5px;
+                        color:#f1d592;
+                        width: 30px;
+                        height: 30px;
+                    }
+                    button {
+                        font-family: "Figtree";
+                        font-size: 15px;
+                        margin-left: 10px;
+                        height: 40px;
+                        width: 100%;
+                        border-color: rgb(235, 235, 235);
+                        border-style: solid;
+                        border-radius: 3px;
+                        &:hover {
+                            background-color: rgb(235, 235, 235);
+                            text-decoration: underline;
+                        }
+                    }
+                }
+                p {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+// LOGIN
+
+.logincontainer {
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    flex-wrap: wrap;
+    background-color: rgb(241, 241, 241);
+    border-radius: 7px;
+    margin: auto;
+    height: 50vh;
+    margin-top: 10vw;
+    h1 {
+        text-align: center;
+        font-family: "Figtree";
+        width: 100%;
+        height: 40px;
+    }
+    
+    .loginformcontainer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+            .logininputcontainer {
+                width: 100%;
+                border-color: magenta;
+                height: 250px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .logininput {
+                    display: block;
+                    margin: 10px 0 10px 0;
+                    width: 70%;
+                    font-family: "Figtree";
+                    padding: 7px;
+                }
+            }
+        
+        .loginsubmitcontainer{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+    p {
+        text-align: center;
+        margin: auto;
+        height: 25%;
+        line-height: 9;
+    }
+}
+
+// FOLDER
+
+.folderviewcontainer {
+    display: flex;
+    flex-wrap: wrap;
+
+    .foldertitle {
+        display: flex;
+        width: 100%;
+        h1 {
+            width: 85%;
+            font-family: "Figtree";
+            font-size: 50px;
+            margin: 35.5px 2px 35.5px 2px;
+        }
+        .folderprefbuttons {
+            width: 15%;
+            margin: 10px 0 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            button {
+                width: 50%;
+                margin-right: 10px;
+            }
+        }
+        input {
+            width: 85%;
+            font-family: "Figtree";
+            font-weight: 900;
+            font-size: 50px;
+            margin: 33.5px 0 33.5px 0;
+        }
+    }
+    h2 {
+        margin-top: 0;
+        width: 100%;
+        font-family: "Figtree";
+        font-size: 30px;
+    }
+    h3 {
+        margin-top: 0;
+        font-weight: 400;
+        width: 100%;
+        font-family: "Figtree";
+        color: rgb(105, 105, 105)
+    }
+    .publishsection {
+        width: 100%;
+        margin-top: 20px;
+
+        p{
+            background-color: rgb(241, 241, 241);
+            border-radius: 7px;
+            padding: 10px;
+        }
+    }
+   
+
+    .notedisplay {
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding: 20px;
+        border-radius: 7px;
+        max-height: 50vh;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        #note {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            margin: 5px;
+            svg {
+                padding: 5px;
+                color:#5e5e5e;
+                width: 30px;
+                height: 30px;
+            }
+            button {
+                font-family: "Figtree";
+                font-size: 15px;
+                margin-left: 10px;
+                height: 40px;
+                width: 100%;
+                border-color: rgb(235, 235, 235);
+                border-style: solid;
+                border-radius: 3px;
+                &:hover {
+                    background-color: rgb(235, 235, 235);
+                    text-decoration: underline;
+                }
+            }
+        }
+        .createfoldercontainer {
+            width: 100%;
+            height: 40px;
+            margin: 5px;
+            display: flex;
+            height: 30px;
+            .createbuttonspacer {
+                padding: 5px;
+                height: 30px;
+                width: 30px;
+            }
+            .createfolderbutton {
+                height: 40px;
+                width: 100%;
+                display: flex;
+                margin-left: 10px;
+                align-items: center;
+                align-content: center;
+                &:hover {
+                    text-decoration: underline;
+                    background-color:#f8f8f8;
+                    border-radius: 5px;
+                }
+                svg {
+                    width: 30px;
+                }
+                p {
+                    margin: 0;
+                    margin-left: 5px;
+                    line-height: 1;
+                }
+            }
+        }  
+
+    }
+    .editingfoldername{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        input {
+            padding: 0;
+        }
+        button {
+            margin: 0;
+        }
+    }
+    
+}
+
+// ALL
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
 #root {
+padding: 10px;
    border-radius: 5px;
    background-color: white;
-   margin: 10px;
-   height: 100vh
+   max-width: 1392px;
 }
 
 body {
-    background-color: #BEBBBB;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
 }
 
-@media screen and (max-width: 600px) {
-    
+.backbutton {
+    float: left;
+    width: 100%;
+    button {
+        height: 30px;
+        margin-top: 10px;
+        border-radius: 3px;
+        font-family: "Figtree";
+        font-size: 17px;
+        border-style: none;
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        &:hover {
+            background-color: rgb(230, 230, 230);
+        }
+    }
+}
+
+.loginbutton {
+    height: 30px;
+    background-color: #f1d592;
+    margin-right: 10px;
+    border-style: solid;
+    border-color: #edca78;
+    border-radius: 3px;
+    font-family: "Figtree";
+    font-size: 17px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    &:hover {
+        background-color: #edca78;
+    }
+}
+
+.signupbutton {
+    height: 30px;
+    background-color: rgb(222, 222, 222);
+    border-style: solid;
+    border-color: rgb(209, 209, 209);
+    border-radius: 3px;
+    font-family: "Figtree";
+    font-size: 17px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    &:hover {
+        background-color: rgb(209, 209, 209);
+    }
+}
+
+.logoutbutton {
+    height: 30px;
+    background-color: rgb(255, 104, 104);
+    border-style: solid;
+    border-color: rgb(255, 108, 108);
+    border-radius: 3px;
+    font-family: "Figtree";
+    font-size: 17px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    &:hover {
+        background-color: rgb(253, 86, 86);
+    }
+}
+
+
+// * {
+//     border: 1px solid magenta
+// }
+
+// MEDIA
+@media screen and (min-width: 600px) {
+    .aboutsection {
+        max-width: 80%;
+    }
   }

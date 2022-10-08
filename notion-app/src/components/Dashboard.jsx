@@ -15,22 +15,24 @@ function Dashboard() {
 
     const navigate = useNavigate()
 
-    let noDraftFolders = <p>You don't have any folders yet. Click the plus to create one.</p>
-    let noPublishedFolders = <p>You haven't published any folders yet. To do so, view the draft folder you would like to publish.</p>
-    let noPublicFolders = <p>Hmmm... it appears there's no folders to display here.</p>
+    let noDraftFolders = <p className="nodraftfolders">You don't have any draft folders. Click the plus to get started.</p>
+    let noPublishedFolders = <p className="nopublishedfolders">You haven't published any folders yet. To do so, view the draft folder you would like to publish.</p>
+    let noPublicFolders = <p className="nopublicfolders">Hmmm... it appears there's no folders to display here.</p>
 
     let dynamicHeader = (
-        <div>
+        <div className="notloggedinheader">
             <h1>Your dashboard</h1>
-            <section>You are not currently logged in.</section>
-            <a href="/login"><button>Log in</button></a>
-            <a href="/signup"><button>Sign up</button></a>
-            <p>In order to view or create your personal folders and notes you must be logged in. You can still view publicly published folders below.</p>
+            <div className="notloggedin">
+                <h4>You are not currently logged in.</h4>
+                <p>In order to view or create your personal folders and notes you must be logged in. You can still view publicly published folders below.</p>
+                <a href="/login"><button className="loginbutton">Log in</button></a>
+                <a href="/signup"><button className="signupbutton">Sign up</button></a>
+            </div>
         </div>
     )
 
     let dynamicDash = (
-        <div>
+        <div class="notloggedindash">
             <h2>Personal Folders</h2>
             <p>Log in to create your own folders and notes.</p>
         </div>
@@ -53,9 +55,9 @@ function Dashboard() {
             navigate(`/dashboard/folder/${item._id['$oid']}`, {state: { folder: item, user: currentUser }})
         }
             return (
-                <div className={`publicfolder${index + 1}`} key={index}>
+                <div className={`publicfolder${index + 1}`} key={index} id="folder">
                     <FontAwesomeIcon icon="fa-solid fa-folder" />
-                    <button onClick={redirect}><h4>{item.name}</h4></button>
+                    <button onClick={redirect}>{item.name}</button>
                 </div>
             )
         })
@@ -65,9 +67,9 @@ function Dashboard() {
                 navigate(`/dashboard/folder/${item._id['$oid']}`, {state: { folder: item, user: currentUser }})
             }
                 return (
-                    <div className={`draftfolder${index + 1}`} key={index}>
+                    <div className={`draftfolder${index + 1}`} key={index} id="folder">
                         <FontAwesomeIcon icon="fa-solid fa-folder" />
-                        <button onClick={redirect}><h4>{item.name}</h4></button>
+                        <button onClick={redirect}>{item.name}</button>
                     </div>
                 )
             })
@@ -78,7 +80,7 @@ function Dashboard() {
             navigate(`/dashboard/folder/${item._id['$oid']}`, {state: { folder: item, user: currentUser }})
         }
             return (
-                <div className={`publishedfolder${index + 1}`} key={index}>
+                <div className={`publishedfolder${index + 1}`} key={index} id="folder">
                     <FontAwesomeIcon icon="fa-solid fa-folder" />
                     <button onClick={redirect}>{item.name}</button>
                 </div>
@@ -149,32 +151,59 @@ function Dashboard() {
             <h1>{currentUser.username}'s dashboard</h1>
         )
         dynamicDash = (
-            <div>
-                <h2>Personal Folders</h2>
-                <p>These are the folders you have created. Click the plus button to create a new folder.</p>
+            <div className="personalfolderscontainer">
+                <h2>Your Folders</h2>
+                <div className='folderscontainer' id="draft">
                     <h3>Draft folders</h3>
-                        <p>These are your draft folders. They have not been published yet. View one to publish it.</p>
-                        {personalDraftFolders.length === 0 ? noDraftFolders : draftFolders}
-                        <div onClick={createFolder}><FontAwesomeIcon icon="fa-solid fa-plus"/>Create a new folder</div>
+                    <p>These are your draft folders. They have not been published yet. View one to publish it.</p>
+                    <div className='folderspace'>
+                        <div className="folders">
+                            {personalDraftFolders.length === 0 ? noDraftFolders : draftFolders}
+                        </div>
+                        <div className="createfoldercontainer">
+                            { personalDraftFolders.length === 0 ? <div></div> : <div className="createbuttonspacer"></div> }
+                            <div className="createfolderbutton"onClick={createFolder}><FontAwesomeIcon icon="fa-solid fa-plus"/><p>Create a new folder</p></div>
+                        </div>
+                    </div>
+                </div>                
+                <div className="folderscontainer" id="published">
                     <h3>Published folders</h3>
-                        {personalPublishedFolders.length === 0 ? noPublishedFolders : publishedFolders}
+                    <div className="folderspace">
+                        <div className="folders">
+                            {personalPublishedFolders.length === 0 ? noPublishedFolders : publishedFolders}
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
 
     return (
-        <div>
+        <div className="container">
             <NavBar/>
-            <a href="/"><button><FontAwesomeIcon icon="fa-solid fa-arrow-left"/>  Back</button></a>
-            <main>
-                {dynamicHeader}
-                {dynamicDash}
-                <div className="publicfolderscontainer">
-                    <h2>Public Folders</h2>
-                    <p>View published folders and notes created by users on iArchive</p>
-                    {publicFolders.length === 0 ? noPublicFolders : publicFolders}
-                </div>
-            </main>
+            <div className="backbutton">
+                <a href="/"><button><FontAwesomeIcon icon="fa-solid fa-arrow-left"/>  Back</button></a>
+            </div>
+            <div className="dashboardcontainer">
+                <main>
+                    <div className="dashboardtitlecontainer">
+                        {dynamicHeader}
+                        {dynamicDash}
+                    </div>
+                    <div className="publicfolderscontainer">
+                        <h2>Public Folders</h2>
+
+                        <div className="folderscontainer">
+                            <p>View published folders and notes created by users on iArchive</p>
+                            <div className="folderspace">
+                                <div className="folders">
+                                    {publicFolders.length === 0 ? noPublicFolders : publicFolders}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
         </div>
     )
 }

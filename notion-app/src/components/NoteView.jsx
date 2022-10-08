@@ -4,6 +4,7 @@ import { CurrentUser } from '../contexts/CurrentUser'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import httpClient from '../httpClient'
 import TextEditor from './TextEditor'
+import NavBar from './NavBar'
 
 
 function NoteView() {
@@ -145,25 +146,27 @@ function NoteView() {
     }
 
     return (
-        <div>
-            <button onClick={back}><FontAwesomeIcon icon="fa-solid fa-arrow-left" />  Back</button>
-            {editMode ? editName : <h1>{note.name}</h1>}
-            <h4>{folder.name}</h4>
-            <h2 onClick={getProfile}>{note.creator}</h2>
-            {editMode ? editDescription : <h4>{note.description}</h4>}
-            {editMode ? <button onClick={confirmEdit}>Confirm</button> : <p></p>}
-            {editMode ? <button onClick={cancelEdit}>Cancel</button> : editButton}
-            {deleteButton}
-            <hr/>
-            {editingContent ? <TextEditor note={note}/> : <br/>}
-            <div className="editcontentsectionwarning">
-                {editingContent? <button onClick={cancelEditingContent}>Cancel</button> : editContentButton}
-                {note.content === undefined ? <p>Nothing has been jotted down yet...</p>: <div dangerouslySetInnerHTML={{__html: note.content}}></div>}
+        <div className="container">
+            <NavBar />
+            <div className="backbutton">
+                <button onClick={back}><FontAwesomeIcon icon="fa-solid fa-arrow-left" />  Back</button>
             </div>
-
+            <div className="noteviewcontainer">
+                {editMode ? editName : <h1>{note.name}</h1>}
+                <h4>{folder.name}</h4>
+                <h2 onClick={getProfile}>{note.creator}</h2>
+                {editMode ? editDescription : <h4>{note.description}</h4>}
+                {editMode ? <button onClick={confirmEdit}>Confirm</button> : <p></p>}
+                {editMode ? <button onClick={cancelEdit}>Cancel</button> : editButton}
+                {deleteButton}
+                <hr/>
+                {editingContent ? <TextEditor note={note}/> : <br/>}
+                <div className="editcontentsectionwarning">
+                    {editingContent? <button onClick={cancelEditingContent}>Cancel</button> : editContentButton}
+                    {note.content === undefined ? <p>Nothing has been jotted down yet...</p>: <div dangerouslySetInnerHTML={{__html: note.content}}></div>}
+                </div>
+            </div>
         </div>
-        
-        
     )
 }
 

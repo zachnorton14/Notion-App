@@ -35,10 +35,10 @@ export default function EditFolder(props) {
         console.log(folderPrefs.profile_picture)
     
         try {
-          const response = await httpClient.put(`http://localhost:5000/dashboard/folder/${folder_id}`, folderPrefs)
+          const response = await httpClient.put(`http://localhost:5000/folder/${folder_id}`, folderPrefs)
             if (response.status === 200) {
                 console.log(response.data.message)
-                navigate(`/folder/${folder_id}`)
+                navigate(`/dashboard/folder/${folder._id['$oid']}`, {state: { folder: folder, user: currentUser }})
                 window.location.reload()
             }
         } catch (error){
@@ -50,9 +50,9 @@ export default function EditFolder(props) {
       }
 
   return (
-    <div>
+    <div className="editingfoldername">
         {editName}
-        <button onClick={confirmEdit}>Confirm</button>
+        <button className="loginbutton" onClick={confirmEdit}>Confirm</button>
     </div>
   )
 }

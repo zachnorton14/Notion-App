@@ -62,7 +62,9 @@ function Profile() {
 
   return (
     <div>
-      <a href="/dashboard"><button><FontAwesomeIcon icon="fa-solid fa-arrow-left" />  Back</button></a>
+      <div className="backbutton">
+        <a href="/dashboard"><button><FontAwesomeIcon icon="fa-solid fa-arrow-left" />  Back</button></a>
+      </div>
       {editMode ? <EditProfile user={user}/> : profileView}
       {editMode ? <button onClick={cancelEdit}>Cancel</button> : <button onClick={editProfile}> Edit profile </button>}
       {editMode ? <div></div> : <button onClick={deleteAccount}>Delete Account</button>}

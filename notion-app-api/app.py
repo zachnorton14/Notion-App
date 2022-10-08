@@ -167,7 +167,6 @@ def current_user_folders():
             return jsonify({"error":"Could not create new folder with given credentials"})
 
         folder = json.loads(new_folder.to_json())
-        print(folder)
 
         return {
             "message": "Successfully created new folder",
@@ -220,14 +219,10 @@ def folder(folder_id):
     if request.method == 'DELETE':
         deleted_folder = Folder.objects(pk=folder_id).delete()
 
-        print(deleted_folder)
-
         if deleted_folder is False:
             return jsonify({"message":"Could not delete folder with given id"}), 401
 
         deleted_notes = Note.objects(folder_id=folder_id).delete()
-
-        print(deleted_notes)
 
         if deleted_notes is False:
             return jsonify({"message":"Could not delete given folders notes"}), 401
@@ -329,7 +324,7 @@ def note_content(note_id):
     if request.method == 'PUT':
         edit = request.json['edit']
 
-        if edit is '':
+        if edit == '':
             return jsonify({"message":"content's edit field cannot be blank"}), 401
 
         edited_note = Note.objects(pk=note_id).modify(set__content=edit)
@@ -338,6 +333,3 @@ def note_content(note_id):
             return jsonify({"message":"Could not edit note content"}), 401
         
         return {"message":"successfully edited note content"}, 200
-
-
-

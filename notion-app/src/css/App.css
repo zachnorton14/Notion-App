@@ -1,17 +1,624 @@
-.homecontainer h1 {
+.homecontainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.homecontainer .homesplash {
+  width: 100%;
+  height: 88vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.homecontainer .homesplash .hometitlecontainer {
+  width: 100%;
+}
+.homecontainer .homesplash .hometitlecontainer h1 {
   font-family: "Figtree";
   font-weight: 900;
+  font-size: 80px;
+  margin-bottom: 10px;
+}
+.homecontainer .homesplash .hometitlecontainer h3 {
+  font-family: "Figtree";
+  font-size: 30px;
+}
+.homecontainer .homesplash .hometitlecontainer p {
+  font-family: "Figtree";
+}
+.homecontainer .enterbuttoncontainer {
+  width: 80%;
+  margin-top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.homecontainer .enterbuttoncontainer p {
+  max-width: 40vw;
+  color: rgb(105, 105, 105);
+}
+.homecontainer .enterbuttoncontainer button {
+  height: 6rem;
+  width: 16rem;
+  font-family: "Figtree";
+  background-color: transparent;
+  font-size: 40px;
+  font-weight: 700;
+  border-width: 1.5px;
+  border-radius: 5px;
+}
+.homecontainer .aboutsection {
+  padding: 15px;
+  background-color: #f1d592;
+  border-radius: 10px;
+  max-width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.homecontainer .aboutsection h2 {
+  text-align: center;
+  font-size: 30px;
+  font-family: "Figtree";
+}
+.homecontainer .aboutsection p {
+  text-align: center;
+  width: 80%;
+  font-family: "Figtree";
+  font-size: 20px;
+}
+
+nav {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  margin-top: 10px;
+}
+nav .navbarbuttonscontainer {
+  display: flex;
+  justify-content: flex-end;
+}
+nav .navbarbuttonscontainer button {
+  height: 30px;
+  background-color: rgb(255, 104, 104);
+  border-style: solid;
+  border-color: rgb(255, 108, 108);
+  border-radius: 3px;
+  font-family: "Figtree";
+  font-size: 17px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+nav .navbarbuttonscontainer button:hover {
+  background-color: rgb(253, 86, 86);
+}
+nav .navbarbuttonscontainer .navprofilebuttons {
+  display: flex;
+  margin-right: 10px;
+  float: right;
+}
+nav .navbarbuttonscontainer .navprofilebuttons:hover p {
+  text-decoration: underline;
+}
+nav .navbarbuttonscontainer .navprofilebuttons:hover img {
+  border-color: #afafaf;
+}
+nav .navbarbuttonscontainer .navprofilebuttons img {
+  border-radius: 25px;
+  margin-right: 5px;
+  border-style: solid;
+  border-color: #d3d3d3;
+}
+nav .navbarbuttonscontainer .navprofilebuttons p {
+  font-size: 17px;
+  font-family: "Figtree";
+  line-height: 1.75;
+}
+
+.dashboardcontainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.dashboardcontainer h1 {
+  width: 100%;
+  font-family: "Figtree";
+  font-size: 50px;
+}
+.dashboardcontainer .personalfolderscontainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.dashboardcontainer .personalfolderscontainer h2 {
+  margin-top: 0;
+  width: 100%;
+  font-family: "Figtree";
+  font-size: 30px;
+}
+.dashboardcontainer .personalfolderscontainer p {
+  width: 100%;
+  font-family: "Figtree";
+  font-size: 15px;
+  color: rgb(105, 105, 105);
+}
+.dashboardcontainer .personalfolderscontainer #draft {
+  margin-bottom: 38px;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer {
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 20px;
+  border-radius: 7px;
+  display: row;
+  flex-direction: column;
+  width: 100%;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer h3 {
+  width: 100%;
+  margin-top: 0;
+  font-family: "Figtree";
+  font-size: 20px;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer p {
+  width: 100%;
+  font-family: "Figtree";
+  font-size: 15px;
+  color: rgb(105, 105, 105);
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .folderspace {
+  padding: 10px 4px 10px 4px;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .folders {
+  margin: 5px 2px 5px 2px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .folders .nodraftfolders {
+  height: 40px;
+  margin: 5px 2px 5px 2px;
+  line-height: 2.5;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .folders #folder {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  margin: 5px;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .folders #folder svg {
+  padding: 5px;
+  color: #f1d592;
+  width: 30px;
+  height: 30px;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .folders #folder button {
+  font-family: "Figtree";
+  font-size: 15px;
+  margin-left: 10px;
+  height: 40px;
+  width: 100%;
+  border-color: rgb(235, 235, 235);
+  border-style: solid;
+  border-radius: 3px;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .folders #folder button:hover {
+  background-color: rgb(235, 235, 235);
+  text-decoration: underline;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .folders p {
+  width: 100%;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .createfoldercontainer {
+  height: 40px;
+  margin: 5px;
+  display: flex;
+  height: 30px;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .createfoldercontainer .createbuttonspacer {
+  padding: 5px;
+  height: 30px;
+  width: 30px;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .createfoldercontainer .createfolderbutton {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
+  align-content: center;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .createfoldercontainer .createfolderbutton:hover {
+  text-decoration: underline;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .createfoldercontainer .createfolderbutton svg {
+  width: 30px;
+}
+.dashboardcontainer .personalfolderscontainer .folderscontainer .createfoldercontainer .createfolderbutton p {
+  margin: 0;
+  margin-left: 5px;
+  line-height: 1;
+}
+.dashboardcontainer .notloggedinheader {
+  font-family: "Figtree";
+}
+.dashboardcontainer .notloggedinheader .notloggedin {
+  border-radius: 7px;
+  padding: 20px;
+  background-color: rgb(255, 219, 219);
+  display: flex;
+  flex-wrap: wrap;
+}
+.dashboardcontainer .notloggedinheader .notloggedin h4 {
+  margin: 10px 0 10px 0;
+  width: 100%;
+  font-size: 20px;
+}
+.dashboardcontainer .notloggedinheader .notloggedin p {
+  margin: 10px 0 10px 0;
+  width: 100%;
+  font-size: 17px;
+}
+.dashboardcontainer .notloggedinheader .notloggedin button {
+  margin: 10px 10px 10px 0;
+}
+.dashboardcontainer .notloggedindash {
+  font-family: "Figtree";
+}
+.dashboardcontainer .notloggedindash h2 {
+  width: 100%;
+  font-size: 30px;
+}
+.dashboardcontainer .notloggedindash p {
+  font-size: 17px;
+  width: 100%;
+}
+.dashboardcontainer .publicfolderscontainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.dashboardcontainer .publicfolderscontainer h2 {
+  width: 100%;
+  font-family: "Figtree";
+  font-size: 30px;
+}
+.dashboardcontainer .publicfolderscontainer p {
+  margin-top: 0;
+  width: 100%;
+  font-size: 17px;
+  color: rgb(105, 105, 105);
+}
+.dashboardcontainer .publicfolderscontainer .folderscontainer {
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 20px;
+  border-radius: 7px;
+  display: row;
+  flex-direction: column;
+  width: 100%;
+}
+.dashboardcontainer .publicfolderscontainer .folderscontainer h3 {
+  width: 100%;
+  margin-top: 0;
+  font-family: "Figtree";
+  font-size: 20px;
+}
+.dashboardcontainer .publicfolderscontainer .folderscontainer p {
+  width: 100%;
+  font-size: 17px;
+  color: rgb(105, 105, 105);
+}
+.dashboardcontainer .publicfolderscontainer .folderscontainer .folderspace {
+  padding: 10px 4px 10px 4px;
+}
+.dashboardcontainer .publicfolderscontainer .folderscontainer .folders {
+  margin: 5px 2px 5px 2px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.dashboardcontainer .publicfolderscontainer .folderscontainer .folders #folder {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  margin: 5px;
+}
+.dashboardcontainer .publicfolderscontainer .folderscontainer .folders #folder svg {
+  padding: 5px;
+  color: #f1d592;
+  width: 30px;
+  height: 30px;
+}
+.dashboardcontainer .publicfolderscontainer .folderscontainer .folders #folder button {
+  font-family: "Figtree";
+  font-size: 15px;
+  margin-left: 10px;
+  height: 40px;
+  width: 100%;
+  border-color: rgb(235, 235, 235);
+  border-style: solid;
+  border-radius: 3px;
+}
+.dashboardcontainer .publicfolderscontainer .folderscontainer .folders #folder button:hover {
+  background-color: rgb(235, 235, 235);
+  text-decoration: underline;
+}
+.dashboardcontainer .publicfolderscontainer .folderscontainer .folders p {
+  width: 100%;
+}
+
+.logincontainer {
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: rgb(241, 241, 241);
+  border-radius: 7px;
+  margin: auto;
+  height: 50vh;
+  margin-top: 10vw;
+}
+.logincontainer h1 {
+  text-align: center;
+  font-family: "Figtree";
+  width: 100%;
+  height: 40px;
+}
+.logincontainer .loginformcontainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.logincontainer .loginformcontainer .logininputcontainer {
+  width: 100%;
+  border-color: magenta;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.logincontainer .loginformcontainer .logininputcontainer .logininput {
+  display: block;
+  margin: 10px 0 10px 0;
+  width: 70%;
+  font-family: "Figtree";
+  padding: 7px;
+}
+.logincontainer .loginformcontainer .loginsubmitcontainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.logincontainer p {
+  text-align: center;
+  margin: auto;
+  height: 25%;
+  line-height: 9;
+}
+
+.folderviewcontainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+.folderviewcontainer .foldertitle {
+  display: flex;
+  width: 100%;
+}
+.folderviewcontainer .foldertitle h1 {
+  width: 85%;
+  font-family: "Figtree";
+  font-size: 50px;
+  margin: 35.5px 2px 35.5px 2px;
+}
+.folderviewcontainer .foldertitle .folderprefbuttons {
+  width: 15%;
+  margin: 10px 0 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.folderviewcontainer .foldertitle .folderprefbuttons button {
+  width: 50%;
+  margin-right: 10px;
+}
+.folderviewcontainer .foldertitle input {
+  width: 85%;
+  font-family: "Figtree";
+  font-weight: 900;
+  font-size: 50px;
+  margin: 33.5px 0 33.5px 0;
+}
+.folderviewcontainer h2 {
+  margin-top: 0;
+  width: 100%;
+  font-family: "Figtree";
+  font-size: 30px;
+}
+.folderviewcontainer h3 {
+  margin-top: 0;
+  font-weight: 400;
+  width: 100%;
+  font-family: "Figtree";
+  color: rgb(105, 105, 105);
+}
+.folderviewcontainer .publishsection {
+  width: 100%;
+  margin-top: 20px;
+}
+.folderviewcontainer .publishsection p {
+  background-color: rgb(241, 241, 241);
+  border-radius: 7px;
+  padding: 10px;
+}
+.folderviewcontainer .notedisplay {
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 20px;
+  border-radius: 7px;
+  max-height: 50vh;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.folderviewcontainer .notedisplay #note {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  margin: 5px;
+}
+.folderviewcontainer .notedisplay #note svg {
+  padding: 5px;
+  color: #5e5e5e;
+  width: 30px;
+  height: 30px;
+}
+.folderviewcontainer .notedisplay #note button {
+  font-family: "Figtree";
+  font-size: 15px;
+  margin-left: 10px;
+  height: 40px;
+  width: 100%;
+  border-color: rgb(235, 235, 235);
+  border-style: solid;
+  border-radius: 3px;
+}
+.folderviewcontainer .notedisplay #note button:hover {
+  background-color: rgb(235, 235, 235);
+  text-decoration: underline;
+}
+.folderviewcontainer .notedisplay .createfoldercontainer {
+  width: 100%;
+  height: 40px;
+  margin: 5px;
+  display: flex;
+  height: 30px;
+}
+.folderviewcontainer .notedisplay .createfoldercontainer .createbuttonspacer {
+  padding: 5px;
+  height: 30px;
+  width: 30px;
+}
+.folderviewcontainer .notedisplay .createfoldercontainer .createfolderbutton {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
+  align-content: center;
+}
+.folderviewcontainer .notedisplay .createfoldercontainer .createfolderbutton:hover {
+  text-decoration: underline;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+}
+.folderviewcontainer .notedisplay .createfoldercontainer .createfolderbutton svg {
+  width: 30px;
+}
+.folderviewcontainer .notedisplay .createfoldercontainer .createfolderbutton p {
+  margin: 0;
+  margin-left: 5px;
+  line-height: 1;
+}
+.folderviewcontainer .editingfoldername {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.folderviewcontainer .editingfoldername input {
+  padding: 0;
+}
+.folderviewcontainer .editingfoldername button {
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #root {
+  padding: 10px;
   border-radius: 5px;
   background-color: white;
-  margin: 10px;
-  height: 100vh;
+  max-width: 1392px;
 }
 
 body {
-  background-color: #BEBBBB;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+}
+
+.backbutton {
+  float: left;
+  width: 100%;
+}
+.backbutton button {
+  height: 30px;
+  margin-top: 10px;
+  border-radius: 3px;
+  font-family: "Figtree";
+  font-size: 17px;
+  border-style: none;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.backbutton button:hover {
+  background-color: rgb(230, 230, 230);
+}
+
+.loginbutton {
+  height: 30px;
+  background-color: #f1d592;
+  margin-right: 10px;
+  border-style: solid;
+  border-color: #edca78;
+  border-radius: 3px;
+  font-family: "Figtree";
+  font-size: 17px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.loginbutton:hover {
+  background-color: #edca78;
+}
+
+.signupbutton {
+  height: 30px;
+  background-color: rgb(222, 222, 222);
+  border-style: solid;
+  border-color: rgb(209, 209, 209);
+  border-radius: 3px;
+  font-family: "Figtree";
+  font-size: 17px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.signupbutton:hover {
+  background-color: rgb(209, 209, 209);
+}
+
+.logoutbutton {
+  height: 30px;
+  background-color: rgb(255, 104, 104);
+  border-style: solid;
+  border-color: rgb(255, 108, 108);
+  border-radius: 3px;
+  font-family: "Figtree";
+  font-size: 17px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.logoutbutton:hover {
+  background-color: rgb(253, 86, 86);
+}
+
+@media screen and (min-width: 600px) {
+  .aboutsection {
+    max-width: 80%;
+  }
 }
 
 /*# sourceMappingURL=app.css.map */

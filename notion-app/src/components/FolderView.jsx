@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { CurrentUser } from '../contexts/CurrentUser'
 import httpClient from '../httpClient'
 import EditFolder from './EditFolder'
+import NavBar from './NavBar'
 
 function FolderView() {
 
@@ -29,7 +30,7 @@ function FolderView() {
             navigate(`/dashboard/folder/${folder_id}/note/${item._id['$oid']}}`, {state: { note: item, folder: folder }})
         }
             return (
-                <div className={`note${index + 1}`} key={index}>
+                <div className={`note${index + 1}`} key={index} id="note">
                     <FontAwesomeIcon icon="fa-solid fa-file" />
                     <button onClick={redirect}>{item.name}</button>
                 </div>
@@ -133,19 +134,12 @@ function FolderView() {
     let noNotesWarning;
     let createNoteButton;
 
-	if (currentUser?.username == foldercreator){
-		editButton = <button style={{ float: 'center'}} onClick={editFolder}>Edit</button>
-		deleteButton = <button style={{ float: 'center'}} onClick={deleteFolder}>Delete</button>
-        noNotesWarning = <p>You haven't created any notes in this folder yet, hit the plus to create one now.</p>
-        createNoteButton = <div onClick={createNote}><FontAwesomeIcon icon="fa-solid fa-plus"/>Create a new note</div>
-	}
-	
     let publishSection;
-	
-	if (folder.is_published === false){
+
+    if (folder.is_published === false){
         publishSection = (
-            <div>
-                <button onClick={publishFolder}>Publish</button>
+            <div className="publishsection">
+                <button className="loginbutton" onClick={publishFolder}>Publish</button>
                 <p>
                     <FontAwesomeIcon icon="fa-solid fa-triangle-exclamation" />
                     Publishing your folder makes it public to the world!
@@ -154,25 +148,41 @@ function FolderView() {
         )
     }
 
-	const folderView = (
-			<div>
-        		<h1 onClick={getProfile}>{folder.name}</h1>
-        		<h2>{folder.creator}</h2>
-        		{folder.is_published ? <h3>Published Folder</h3> : <h3>Draft Folder</h3>}
-      		</div>
-	)
+	if (currentUser?.username == foldercreator){
+		editButton = <button className="signupbutton" style={{ float: 'center'}} onClick={editFolder}>Edit</button>
+		deleteButton = <button className="logoutbutton" style={{ float: 'center'}} onClick={deleteFolder}>Delete</button>
+        noNotesWarning = <p>You haven't created any notes in this folder yet, hit the plus to create one now.</p>
+        createNoteButton = (
+            <div className="createfoldercontainer">
+                { notes.length === 0 ? <div></div> : <div className="createbuttonspacer"></div> }
+                <div className="createfolderbutton" onClick={createNote}><FontAwesomeIcon icon="fa-solid fa-plus"/>Create a new note</div>
+            </div>
+        )
+        publishSection = <div></div>
+    }
 
   return (
-    <div>
-      	<a href="/dashboard"><button><FontAwesomeIcon icon="fa-solid fa-arrow-left" />  Back</button></a>
-		{ editMode ? <EditFolder user={user} folder={folder}/> : folderView }
-		{ editMode ? <h1></h1> : publishSection }
-		{ editMode ? <div style={{ float: 'center'}}></div> : deleteButton }
-		{ editMode ? <button onClick={cancelEdit}>Cancel</button> : editButton }
-		    <div className='notedisplay' style={{overflowY: "auto"}}>
-        		{notes.length === 0 ? noNotesWarning : noteSection}
-        		{createNoteButton}
-      		</div>
+    <div className="container">
+        <NavBar />
+        <div className="backbutton">
+            <a href="/dashboard"><button><FontAwesomeIcon icon="fa-solid fa-arrow-left" />  Back</button></a>
+        </div>
+        <div className="folderviewcontainer">
+            <div className="foldertitle">
+                { editMode ? <EditFolder user={user} folder={folder}/> : <h1>{folder.name}</h1> }
+                <div className="folderprefbuttons">
+                    { editMode ? <button className="signupbutton" onClick={cancelEdit}>Cancel</button> : editButton }
+                    { editMode ? <div style={{ float: 'center'}}></div> : deleteButton }
+                </div>
+            </div>
+            <h2 onClick={getProfile}>{folder.creator}</h2>
+        	{folder.is_published ? <h3>Published Folder</h3> : <h3>Draft Folder</h3>}
+                <div className='notedisplay' style={{overflowY: "auto"}}>
+                    {notes.length === 0 ? noNotesWarning : noteSection}
+                    {createNoteButton}
+                </div>
+            { editMode ? <h1></h1> : publishSection }
+        </div>
     </div>
   )
 }
