@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+# iArchive 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+iArchive is a free note taking app you can use to store, share, and save all of your notes.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+* Create folders that can be published at any time to make them globally accessible on the internet.
+* Build folders with many notes that can be used to store any information you wnat.
+* Create an account and display a bio and profile picture.
+* Navigation bar to guide you throughout the website
+* Browse our public folders section to see what other user's are creating.
+* You can get, create, delete, and edit any folders or notes you have created.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## APP
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| Path     | Component    | Purpose    |
+|----------|--------------|------------|
+| /    | `Home.jsx`    | Home Page  |
+| /Login    | `Login.jsx`    | Login Page  |
+| /Signup | `Signup.jsx` | Signup page|
+| /Profile/:userId | `Profile.jsx`    | Profile Page  |
+| /Dashboard | `Dashboard.jsx` | Dashboard |
+| /Dashboard/folder/:folderId | `FolderView.jsx` | Folder page|
+| /Dashboard/folder/:folderId/note/:noteId    | `NoteView.jsx`    | Note Page  |
 
-### `npm test`
+## Credit
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This app was a two week project made by me, zachnorton14, with a split architecture between front-end and back-end.
 
-### `npm run build`
+### We plan to implement these features in the future.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Comment on others posts and let them know how you feel about their folders/notes.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* View all posts by one user on their profile.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Implement a search bar to find the folder you're looking for.
 
-### `npm run eject`
+# iArchive-API
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+iArchive-API is an API where users can access and view, create, update, and delete folders, mnotes, and accounts on the iArchive database.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### **Setup**
+***
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+First, you'll need to install the correct dependencies, use `pip install` and then install the dependencies in the `requirements.txt` file.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Use the command `flask run` to run the back-end server
 
-## Learn More
+### **Data Models**
+***
+Models for MongoDB collections
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Comments**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| folder | note | user |
+| -- | --------- | ------ |
+| name | name | username |
+| creator | creator | password_hash |
+| tags | description | email |
+| is_published | content | bio |
+| date_created | date_created | profile_picture |
+|  | folder_id |  |
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### **Routes** ([http://localhost:5000](http://localhost:5000))
+***
 
-### Analyzing the Bundle Size
+| Method | Path | Purpose  |
+| ------ | ---- | -------- |
+| GET | /@me | Retrieves the current user | 
+| POST | /users | Creates new user |
+| POST | /users/:userId | Logs out user |
+| GET | /users/:userId | Details about a specified user |
+| PUT | /users/:userId | Update a user |
+| DELETE | /users/:userId | Delete a user |
+| POST | /authentication | Authenticates log-in form |
+| GET | /folder | All current user's folders |
+| POST | /folder | Creates a folder |
+| GET | /folder/public | All public folders | 
+| POST | /folder/:folderId | Publish specified folder |
+| PUT | /folder/:folderId | Update specified folder |
+| DELETE | /folder/:folderId | Delete specified folder |
+| GET | /folder/:folderId/note | Gets all notes in specified folder |
+| POST | /folder/:folderId/note | Creates new note in specified folder |
+| PUT | /note/:noteId | Edit specified note |
+| DELETE | /note/:noteId | Delete specified note |
+| PUT | /note/:noteId/content | Edit specified notes content |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## License
+***
 
-### Making a Progressive Web App
+MIT License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Copyright (c) 2022 Spootfiy
 
-### Advanced Configuration
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

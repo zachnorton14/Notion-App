@@ -111,7 +111,7 @@ function FolderView() {
 
     const publishFolder = async () => {
 		try {
-            const response = await httpClient.post(`//localhost:5000/folder/${folder_id}/publish`)
+            const response = await httpClient.post(`//localhost:5000/folder/${folder_id}`)
             if (response.status === 200) {
               	console.log(response.data.message)
 				navigate('/dashboard')
@@ -136,18 +136,6 @@ function FolderView() {
 
     let publishSection;
 
-    if (folder.is_published === false){
-        publishSection = (
-            <div className="publishsection">
-                <button className="loginbutton" onClick={publishFolder}>Publish</button>
-                <p>
-                    <FontAwesomeIcon icon="fa-solid fa-triangle-exclamation" />
-                    Publishing your folder makes it public to the world!
-                </p>
-            </div>
-        )
-    }
-
 	if (currentUser?.username == foldercreator){
 		editButton = <button className="signupbutton" style={{ float: 'center'}} onClick={editFolder}>Edit</button>
 		deleteButton = <button className="logoutbutton" style={{ float: 'center'}} onClick={deleteFolder}>Delete</button>
@@ -158,7 +146,17 @@ function FolderView() {
                 <div className="createfolderbutton" onClick={createNote}><FontAwesomeIcon icon="fa-solid fa-plus"/>Create a new note</div>
             </div>
         )
-        publishSection = <div></div>
+        if (folder.is_published === false){
+            publishSection = (
+                <div className="publishsection">
+                    <button className="loginbutton" onClick={publishFolder}>Publish</button>
+                    <p>
+                        <FontAwesomeIcon icon="fa-solid fa-triangle-exclamation" />
+                        Publishing your folder makes it public to the world!
+                    </p>
+                </div>
+            )
+        }
     }
 
   return (

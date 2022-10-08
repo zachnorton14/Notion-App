@@ -12,7 +12,7 @@ function NavBar() {
     
     const logout = async () => {
         try {
-            let response = await httpClient.post('//localhost:5000/users/logout', currentUser)
+            let response = await httpClient.post(`//localhost:5000/users/${currentUser._id['$oid']}`, currentUser)
             if (response.status === 200) {
                 console.log(response.data.message)
                 window.location.reload()

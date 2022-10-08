@@ -15,7 +15,7 @@ server_session = Session(app)
 
 @app.route('/')
 def index(): 
-    return 'home page test!'
+    return 'home page'
 
 @app.route('/@me')
 def find_current_user():
@@ -30,7 +30,7 @@ def find_current_user():
     }
 
 @app.route('/users', methods=['POST'])
-def user():
+def new_user():
     if request.method == 'POST':
         newusername = request.json['username']
         newpassword = request.json['password']
@@ -48,15 +48,9 @@ def user():
 
         User(username=str(newusername), password_hash=str(hashPass), email=str(newemail)).save()
         return jsonify({"message":"Successfully added new user"}), 200
-@app.route('/users/logout', methods=['POST'])
-def logout_user():
-    if request.method == 'POST':
-        session["user_id"] = None
 
-        return jsonify({"message": "Successfully logged user out"}), 200
-
-@app.route('/users/<user_id>', methods=['DELETE', 'PUT', 'GET'])
-def delete_user(user_id):
+@app.route('/users/<user_id>', methods=['DELETE', 'PUT', 'GET', 'POST'])
+def user(user_id):
     if request.method == 'DELETE':
         session_user_id = session.get("user_id")
 
@@ -133,6 +127,11 @@ def delete_user(user_id):
             "message":"Successfully got user",
             "user": user
         }, 200
+
+    if request.method == 'POST':
+        session["user_id"] = None
+
+        return jsonify({"message": "Successfully logged user out"}), 200
 
 
 @app.route('/authentication', methods=['POST'])
@@ -214,7 +213,7 @@ def public_folders():
             "folders": all_published_folders
         }
 
-@app.route('/folder/<folder_id>', methods=['PUT', 'DELETE'])
+@app.route('/folder/<folder_id>', methods=['PUT', 'DELETE', 'POST'])
 def folder(folder_id):
     if request.method == 'DELETE':
         deleted_folder = Folder.objects(pk=folder_id).delete()
@@ -241,9 +240,7 @@ def folder(folder_id):
             return jsonify({"message":"Folder name could not be changed"}), 401
 
         return {"message":"Successfully updated folder name"}, 200
-        
-@app.route('/folder/<folder_id>/publish', methods=['GET','POST'])
-def published_folders(folder_id):
+
     if request.method == 'POST':
         published_folder = Folder.objects(pk=folder_id).modify(set__is_published=True)
 
