@@ -54,7 +54,7 @@ export default function EditProfile(props) {
         e.preventDefault()
     
         try {
-          const response = await httpClient.put(`http://localhost:5000/users`, userProfile)
+          const response = await httpClient.put(`http://localhost:5000/users/${currentUser._id['$oid']}`, userProfile)
             if (response.status === 200) {
                 console.log(response.data.message)
                 window.location.reload()

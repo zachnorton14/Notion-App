@@ -53,21 +53,27 @@ function Profile() {
   }
   
   const profileView = (
-    <div>
+    <div className="profileview">
       <img src={user?.profile_picture} alt={`${user?.username}`}></img>
-      <h1>{user?.username}</h1>
-      <h3>{user?.bio}</h3>
+      <div className="userheader">
+        <h1>{user?.username}</h1>
+        <h3>{user?.bio}</h3>
+      </div>
     </div>
   )
 
   return (
-    <div>
+    <div className="container">
       <div className="backbutton">
         <a href="/dashboard"><button><FontAwesomeIcon icon="fa-solid fa-arrow-left" />  Back</button></a>
       </div>
-      {editMode ? <EditProfile user={user}/> : profileView}
-      {editMode ? <button onClick={cancelEdit}>Cancel</button> : <button onClick={editProfile}> Edit profile </button>}
-      {editMode ? <div></div> : <button onClick={deleteAccount}>Delete Account</button>}
+      <div className="profilecontainer">
+        {editMode ? <EditProfile user={user}/> : profileView}
+        <div className="profileprefbuttons">
+          {editMode ? <button onClick={cancelEdit}>Cancel</button> : <button onClick={editProfile}> Edit profile </button>}
+          {editMode ? <div></div> : <button onClick={deleteAccount}>Delete Account</button>}
+        </div>
+      </div>
   </div>
   )
 }

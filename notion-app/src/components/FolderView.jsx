@@ -150,10 +150,12 @@ function FolderView() {
             publishSection = (
                 <div className="publishsection">
                     <button className="loginbutton" onClick={publishFolder}>Publish</button>
-                    <p>
-                        <FontAwesomeIcon icon="fa-solid fa-triangle-exclamation" />
-                        Publishing your folder makes it public to the world!
-                    </p>
+                    <div>
+                        <p>
+                            <FontAwesomeIcon icon="fa-solid fa-triangle-exclamation" />
+                            Publishing your folder makes it public to the world!
+                        </p>
+                    </div>
                 </div>
             )
         }

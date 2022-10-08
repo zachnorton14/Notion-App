@@ -1,6 +1,8 @@
 from mongoengine import *
 import datetime
-connect('thecabinet')
+
+DB_URI = "mongodb+srv://user:doubleo7@cluster0.kooydmp.mongodb.net/test?retryWrites=true&w=majority"
+connect('iarchive', host=DB_URI)
 
 class User(Document):
     username = StringField(required=True, unique=True)

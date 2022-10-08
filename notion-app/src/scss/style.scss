@@ -429,20 +429,21 @@ nav {
     .foldertitle {
         display: flex;
         width: 100%;
+        justify-content: space-between;
         h1 {
-            width: 85%;
+            width: 60%;
             font-family: "Figtree";
             font-size: 50px;
             margin: 35.5px 2px 35.5px 2px;
         }
         .folderprefbuttons {
-            width: 15%;
+            width: 40%;
             margin: 10px 0 10px 0;
             display: flex;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
             button {
-                width: 50%;
+
                 margin-right: 10px;
             }
         }
@@ -463,18 +464,25 @@ nav {
     h3 {
         margin-top: 0;
         font-weight: 400;
-        width: 100%;
         font-family: "Figtree";
+        width: 100%;
         color: rgb(105, 105, 105)
     }
     .publishsection {
         width: 100%;
         margin-top: 20px;
-
-        p{
-            background-color: rgb(241, 241, 241);
-            border-radius: 7px;
-            padding: 10px;
+        div {
+            svg {
+                padding: 5px 5px 0 5px;
+                width: 15px;
+                height: 15px;
+            }
+            p{
+                background-color: rgb(241, 241, 241);
+                color: rgb(0, 0, 0);
+                border-radius: 7px;
+                padding: 10px;
+            }
         }
     }
    
@@ -564,11 +572,51 @@ nav {
     
 }
 
+// PROFILE
+
+.profilecontainer {
+    width: 100%;
+    .profileview {
+        display: flex;
+        flex-wrap: wrap;
+        font-weight: 400;
+        font-family: "Figtree";
+        justify-content: center;
+        img {
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            border: solid #d3d3d3 4px;
+        }
+        .userheader {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: center;
+            h1 {
+                text-align: center;
+                width: 100%;
+                margin: auto;
+                font-size: 50px;
+            }
+            h3 {
+                font-weight: 300;
+            }
+        }
+    }
+    
+    .profileprefbuttons {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
 // ALL
 
 .container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 
 }
 

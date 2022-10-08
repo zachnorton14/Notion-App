@@ -408,22 +408,22 @@ nav .navbarbuttonscontainer .navprofilebuttons p {
 .folderviewcontainer .foldertitle {
   display: flex;
   width: 100%;
+  justify-content: space-between;
 }
 .folderviewcontainer .foldertitle h1 {
-  width: 85%;
+  width: 60%;
   font-family: "Figtree";
   font-size: 50px;
   margin: 35.5px 2px 35.5px 2px;
 }
 .folderviewcontainer .foldertitle .folderprefbuttons {
-  width: 15%;
+  width: 40%;
   margin: 10px 0 10px 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
 }
 .folderviewcontainer .foldertitle .folderprefbuttons button {
-  width: 50%;
   margin-right: 10px;
 }
 .folderviewcontainer .foldertitle input {
@@ -442,16 +442,22 @@ nav .navbarbuttonscontainer .navprofilebuttons p {
 .folderviewcontainer h3 {
   margin-top: 0;
   font-weight: 400;
-  width: 100%;
   font-family: "Figtree";
+  width: 100%;
   color: rgb(105, 105, 105);
 }
 .folderviewcontainer .publishsection {
   width: 100%;
   margin-top: 20px;
 }
-.folderviewcontainer .publishsection p {
+.folderviewcontainer .publishsection div svg {
+  padding: 5px 5px 0 5px;
+  width: 15px;
+  height: 15px;
+}
+.folderviewcontainer .publishsection div p {
   background-color: rgb(241, 241, 241);
+  color: rgb(0, 0, 0);
   border-radius: 7px;
   padding: 10px;
 }
@@ -537,9 +543,46 @@ nav .navbarbuttonscontainer .navprofilebuttons p {
   margin: 0;
 }
 
+.profilecontainer {
+  width: 100%;
+}
+.profilecontainer .profileview {
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: 400;
+  font-family: "Figtree";
+  justify-content: center;
+}
+.profilecontainer .profileview img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  border: solid #d3d3d3 4px;
+}
+.profilecontainer .profileview .userheader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}
+.profilecontainer .profileview .userheader h1 {
+  text-align: center;
+  width: 100%;
+  margin: auto;
+  font-size: 50px;
+}
+.profilecontainer .profileview .userheader h3 {
+  font-weight: 300;
+}
+.profilecontainer .profileprefbuttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 #root {

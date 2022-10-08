@@ -11,8 +11,6 @@ CORS(app, supports_credentials=True)
 
 app.config.from_object(ApplicationConfig)
 
-server_session = Session(app)
-
 @app.route('/')
 def index(): 
     return 'home page'
@@ -330,3 +328,6 @@ def note_content(note_id):
             return jsonify({"message":"Could not edit note content"}), 401
         
         return {"message":"successfully edited note content"}, 200
+        
+if __name__ == "__main__":
+    app.run()
