@@ -7,7 +7,7 @@ iArchive is a free note taking app you can use to store, share, and save all of 
 ## Features
 
 * Create folders that can be published at any time to make them globally accessible on the internet.
-* Build folders with many notes that can be used to store any information you wnat.
+* Build folders with many notes that can be used to store any information you want.
 * Create an account and display a bio and profile picture.
 * Navigation bar to guide you throughout the website
 * Browse our public folders section to see what other user's are creating.
