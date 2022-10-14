@@ -19,7 +19,7 @@ function Signup(){
     async function handleSubmit(e){
         e.preventDefault()
 
-        const response = await httpClient.post(`http://localhost:5000/users`, credentials )
+        const response = await httpClient.post(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/users`, credentials )
 
         if (response.status === 200) {        
             navigate('/dashboard')

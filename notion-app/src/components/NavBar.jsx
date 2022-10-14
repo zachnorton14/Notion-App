@@ -11,18 +11,8 @@ function NavBar() {
     const navigate = useNavigate()
     
     const logout = async () => {
-        try {
-            let response = await httpClient.post(`//localhost:5000/users/${currentUser._id['$oid']}`, currentUser)
-            if (response.status === 200) {
-                console.log(response.data.message)
-                window.location.reload()
-            }
-        } catch (error){
-            if (error.response.status === 401) {
-                console.error(error)
-                throw "An error occured whilst trying to log user out"
-            }
-        }
+        sessionStorage.removeItem("user");
+        window.location.reload()
     }
 
     let loginActions;

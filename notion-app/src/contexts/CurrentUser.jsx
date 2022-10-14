@@ -8,19 +8,24 @@ function CurrentUserProvider({ children }){
     const [currentUser, setCurrentUser] = useState(null)
 
     useEffect(() => {
-        const getLoggedInUser = async () => {
-            try {
-                const response = await httpClient.get(`//localhost:5000/@me`)
-                if (response.status === 200){
-                    setCurrentUser(response.data.user[0])
-                } else {
-                    throw "error"
-                }
-            } catch(error){
+
+        setCurrentUser(JSON.parse(sessionStorage.getItem('user')))
+        console.log(currentUser)
+
+    //     const getLoggedInUser = async () => {
+    //         try {
+    //             const response = await httpClient.get(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/@me`)
+    //             console.log(response.data)
+    //             if (response.status === 200){
+    //                 setCurrentUser(response.data.user[0])
+    //             } else {
+    //                 throw "error"
+    //             }
+    //         } catch(error){
                 
-            }
-        }
-        getLoggedInUser()
+    //         }
+    //     }
+    //     getLoggedInUser()
     }, [])
 
     return (

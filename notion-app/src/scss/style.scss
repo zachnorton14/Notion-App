@@ -36,6 +36,7 @@
         flex-direction: column;
         align-items: center;
         p {
+            text-align: center;
             max-width: 40vw;
             color: rgb(105, 105, 105)
         }
@@ -43,16 +44,21 @@
             height: 6rem;
             width: 16rem;
             font-family: "Figtree";
-            background-color: transparent;
+            background-color: #f1d592;
             font-size: 40px;
             font-weight: 700;
-            border-width: 1.5px;
+            border-style: none;
             border-radius: 5px;
+            box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            &:hover {
+                background-color: #edca78;
+            }
         }
     }
     .aboutsection {
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         padding: 15px;
-        background-color: #f1d592;
+        background-color: rgb(235, 235, 235);
         border-radius: 10px;
         max-width: 60%;
         display: flex;
@@ -67,7 +73,8 @@
             text-align: center;
             width: 80%;
             font-family: "Figtree";
-            font-size: 20px;
+            font-size: 18px;
+            font-weight: 100;
         }
     }
 }
@@ -362,7 +369,7 @@ nav {
         }
     }
 }
-// LOGIN
+// LOGIN & SIGNUP
 
 .logincontainer {
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -470,7 +477,7 @@ nav {
     }
     .publishsection {
         width: 100%;
-        margin-top: 20px;
+        margin-top: 30px;
         div {
             svg {
                 padding: 5px 5px 0 5px;
@@ -575,6 +582,7 @@ nav {
 // PROFILE
 
 .profilecontainer {
+    margin-top: 33.5px;
     width: 100%;
     .profileview {
         display: flex;
@@ -594,12 +602,13 @@ nav {
             justify-content: center;
             align-content: center;
             h1 {
+                margin: 2px;
                 text-align: center;
                 width: 100%;
-                margin: auto;
                 font-size: 50px;
             }
             h3 {
+                margin: 2px;
                 font-weight: 300;
             }
         }
@@ -608,6 +617,74 @@ nav {
     .profileprefbuttons {
         display: flex;
         justify-content: flex-end;
+        button {
+            margin-left: 10px;
+        }     
+    }  
+
+    .editprofileview {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        font-weight: 400;
+        font-family: "Figtree";
+        justify-content: center;
+        .editprofile {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            .editprofilepicturecontainer {
+                display: flex;
+                flex-wrap: wrap;
+                width: 210px;
+                justify-content: center;
+                div { 
+                    width: 100%;
+                    img {
+                        height: 200px;
+                        width: 200px;
+                        border-radius: 50%;
+                        border: solid #d3d3d3 4px;
+                    }
+                }
+                input {
+                    width: 186px;
+                    font-family: "Figtree";
+                    padding: 7px;
+                }
+            }
+            .edituserheader {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-content: center;
+                height: 208px;
+                div {
+                    display: flex;
+                    justify-content: center;
+                    .editusername {
+                        text-align: center;
+                        width: 100%;
+                        margin: auto;
+                        font-size: 50px;
+                        font-family: "Figtree";
+                        font-weight: 800;
+                        padding: 0;
+                        width: 489.68px;
+                    }
+                    .editbio {
+                        font-family: "Figtree";
+                        padding: 0;
+                        // margin: 18.72px 0 18.72px 0;
+                        height: 22.286px;
+                    }
+                }
+            }
+        }
+
+
+
     }
 }
 
@@ -621,10 +698,10 @@ nav {
 }
 
 #root {
-padding: 10px;
-   border-radius: 5px;
-   background-color: white;
-   max-width: 1392px;
+padding: 20px;
+border-radius: 5px;
+background-color: white;
+max-width: 1392px;
 }
 
 body {
@@ -669,7 +746,7 @@ body {
     height: 30px;
     background-color: rgb(222, 222, 222);
     border-style: solid;
-    border-color: rgb(209, 209, 209);
+    border-color: rgb(222, 222, 222);
     border-radius: 3px;
     font-family: "Figtree";
     font-size: 17px;

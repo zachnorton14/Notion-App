@@ -14,7 +14,7 @@ export default function TextEditor(props) {
         e.preventDefault()
 
         try {
-          const response = await httpClient.put(`http://localhost:5000/note/${props.note._id['$oid']}/content`, {edit: value})
+          const response = await httpClient.put(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/note/${props.note._id['$oid']}/content`, {edit: value})
             if (response.status === 200) {
                 console.log(response.data.message)
                 window.location.reload()

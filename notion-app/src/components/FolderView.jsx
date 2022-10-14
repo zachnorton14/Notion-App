@@ -40,7 +40,7 @@ function FolderView() {
 
     const createNote = async () => {
         try {
-            const response = await httpClient.post(`//localhost:5000/folder/${folder_id}/note`, user)
+            const response = await httpClient.post(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/folder/${folder_id}/note`, user)
             if (response.status === 200) {
                 console.log(response.data.message)
                 window.location.reload()
@@ -55,7 +55,7 @@ function FolderView() {
 
     const getProfile = async () => {
         try { 
-            const response = await httpClient.get(`http://localhost:5000/users/${folder.creator}`)
+            const response = await httpClient.get(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/users/${folder.creator}`)
             console.log(response.data)
             if (response.status === 200) {
                 console.log(response.data.message)
@@ -72,7 +72,7 @@ function FolderView() {
   useEffect(() => {
     const getNotes = async () => {
         try {
-            const response = await httpClient.get(`//localhost:5000/folder/${folder_id}/note`)
+            const response = await httpClient.get(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/folder/${folder_id}/note`)
             console.log(response)
             if (response.status === 200) {
               	console.log(response.data.message)
@@ -95,7 +95,7 @@ function FolderView() {
 
 	const deleteFolder = async () => {
 		try {
-            const response = await httpClient.delete(`//localhost:5000/folder/${folder_id}`)
+            const response = await httpClient.delete(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/folder/${folder_id}`)
             if (response.status === 200) {
               	console.log(response.data.message)
 				navigate('/dashboard')
@@ -111,7 +111,7 @@ function FolderView() {
 
     const publishFolder = async () => {
 		try {
-            const response = await httpClient.post(`//localhost:5000/folder/${folder_id}`)
+            const response = await httpClient.post(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/folder/${folder_id}`)
             if (response.status === 200) {
               	console.log(response.data.message)
 				navigate('/dashboard')
@@ -181,7 +181,7 @@ function FolderView() {
                     {notes.length === 0 ? noNotesWarning : noteSection}
                     {createNoteButton}
                 </div>
-            { editMode ? <h1></h1> : publishSection }
+            { publishSection }
         </div>
     </div>
   )

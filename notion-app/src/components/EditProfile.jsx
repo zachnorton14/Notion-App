@@ -12,8 +12,10 @@ export default function EditProfile(props) {
       })
 
     let editProfilePicture = (
-        <div>
-          <img src={currentUser.profile_picture} alt={`${currentUser.username}`}></img>
+        <div className="editprofilepicturecontainer">
+          <div>
+            <img src={currentUser.profile_picture} alt={`${currentUser.username}`}></img>
+          </div>
           <input
             type="url"
             defaultValue={currentUser.profile_picture}
@@ -27,34 +29,40 @@ export default function EditProfile(props) {
       )
     
       let editUsername = (
-        <input
-          type="text"
-          defaultValue={currentUser.username}
-          onChange={e => setUserProfile({...userProfile, username: e.target.value})}
-          id="editUserName"
-          name="editUserName"
-          placeholder="Username"
-        >
-        </input>
+        <div>
+          <input
+            type="text"
+            defaultValue={currentUser.username}
+            onChange={e => setUserProfile({...userProfile, username: e.target.value})}
+            id="editUserName"
+            name="editUserName"
+            placeholder="Username"
+            className="editusername"
+          >
+          </input>
+        </div>
       )
     
       let editBio = (
-        <input
-          type="text"
-          defaultValue={currentUser.bio}
-          onChange={e => setUserProfile({...userProfile, bio: e.target.value})}
-          id="editBio"
-          name="editBio"
-          placeholder="Bio"
-        >
-        </input>
+        <div>
+          <input
+            type="text"
+            defaultValue={currentUser.bio}
+            onChange={e => setUserProfile({...userProfile, bio: e.target.value})}
+            id="editBio"
+            name="editBio"
+            placeholder="Bio"
+            className="editbio"
+          >
+          </input>
+        </div>
       )
 
     const confirmEdit = async (e) => {
         e.preventDefault()
     
         try {
-          const response = await httpClient.put(`http://localhost:5000/users/${currentUser._id['$oid']}`, userProfile)
+          const response = await httpClient.put(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/users/${currentUser._id['$oid']}`, userProfile)
             if (response.status === 200) {
                 console.log(response.data.message)
                 window.location.reload()
@@ -68,11 +76,15 @@ export default function EditProfile(props) {
       }
 
   return (
-    <div>
-        {editProfilePicture}
-        {editUsername}
-        {editBio}
-        <button onClick={confirmEdit}>Confirm</button>
+    <div className="editprofileview">
+        <div className="editprofile">
+          {editProfilePicture}
+          <div className="edituserheader">
+            {editUsername}
+            {editBio}
+          </div>
+        </div>
+        <button className="loginbutton" onClick={confirmEdit}>Confirm</button>
     </div>
   )
 }

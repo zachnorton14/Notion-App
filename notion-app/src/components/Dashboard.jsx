@@ -1,6 +1,6 @@
 import NavBar from "./NavBar"
 import { useContext, useEffect, useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { CurrentUser } from '../contexts/CurrentUser'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import httpClient from "../httpClient"
@@ -8,16 +8,24 @@ import httpClient from "../httpClient"
 function Dashboard() {
 
     const { currentUser } = useContext(CurrentUser)
+    // const currentUser = console.log(JSON.parse(sessionStorage.getItem('user')))
 
     const [ personalPublishedFolders, setPersonalPublishedFolders ] = useState([])
     const [ personalDraftFolders, setPersonalDraftFolders ] = useState([])
     const [ allPublicFolders, setAllPublicFolders ] = useState([])
+
+    // const location = useLocation()
+
+    // const currentUser = location.state?.currentUser
 
     const navigate = useNavigate()
 
     let noDraftFolders = <p className="nodraftfolders">You don't have any draft folders. Click the plus to get started.</p>
     let noPublishedFolders = <p className="nopublishedfolders">You haven't published any folders yet. To do so, view the draft folder you would like to publish.</p>
     let noPublicFolders = <p className="nopublicfolders">Hmmm... it appears there's no folders to display here.</p>
+
+    console.log(currentUser['_id']['$oid'])
+    // console.log(JSON.parse(sessionStorage.getItem('user'))._id['$oid'])
 
     let dynamicHeader = (
         <div className="notloggedinheader">
@@ -29,10 +37,10 @@ function Dashboard() {
                 <a href="/signup"><button className="signupbutton">Sign up</button></a>
             </div>
         </div>
-    )
+    ) 
 
     let dynamicDash = (
-        <div class="notloggedindash">
+        <div className="notloggedindash">
             <h2>Personal Folders</h2>
             <p>Log in to create your own folders and notes.</p>
         </div>
@@ -41,7 +49,7 @@ function Dashboard() {
     const publicFolders = allPublicFolders.map((item, index) => {
         const redirect = async () => {
             try { 
-                const response = await httpClient.get(`http://localhost:5000/users/${item.creator}`)
+                const response = await httpClient.get(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/users/${item.creator}`)
                 if (response.status === 200) {
                     console.log(response.data.message)
                     navigate(`/dashboard/folder/${item._id['$oid']}`, {state: { folder: item, user: response.data.user }})
@@ -90,9 +98,9 @@ function Dashboard() {
 
     const createFolder = async () => {
         try {
-            const response = await httpClient.post("//localhost:5000/folder", currentUser)
+            const response = await httpClient.post("http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/folder", currentUser)
             if (response.status === 200) {
-                console.log(response.data)
+                console.log(response.data.message)
                 navigate(`/dashboard/folder/${response.data.folder._id['$oid']}`, {state: { folder: response.data.folder, user: currentUser }})
             }
         } catch (error){
@@ -106,7 +114,7 @@ function Dashboard() {
     useEffect(() => {
         const getPublicFolders = async () => {
             try {
-                const response = await httpClient.get("//localhost:5000/folders/public")
+                const response = await httpClient.get("http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/folders/public")
                 if (response.status === 200) {
                     console.log(response.data.message)
                     setAllPublicFolders(response.data.folders)
@@ -127,7 +135,7 @@ function Dashboard() {
     useEffect(() => {
         const getUsersFolders = async () => {
             try {
-                const response = await httpClient.get("//localhost:5000/folder")
+                const response = await httpClient.get(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/user/${currentUser['_id']['$oid']}/folders`)
                 if (response.status === 200) {
                     console.log(response.data.message)
                     setPersonalPublishedFolders(response.data.folders.filter(element => element.is_published))

@@ -6,7 +6,7 @@ import httpClient from "../httpClient"
 
 function Login(){
 
-    const { setCurrentUser } = useContext(CurrentUser)
+    // const { setCurrentUser } = useContext(CurrentUser)
     
     const [credentials, setCredentials] = useState({
         email: '',
@@ -22,10 +22,12 @@ function Login(){
         e.preventDefault()
 
         try {
-            const response = await httpClient.post("//localhost:5000/authentication", credentials)
+            const response = await httpClient.post("http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/authentication", credentials)
             if (response.status === 200) {
                 setMessage(response.data.message)
-                setCurrentUser(response.data.user)
+                // setCurrentUser(response.data.user)
+                const user = JSON.stringify(response.data.user)
+                sessionStorage.setItem('user', user)
                 navigate('/dashboard')
             }
         } catch (error){
@@ -42,8 +44,8 @@ function Login(){
     return(
         <div className="container">
             <div className="backbutton">
-                    <a href="/dashboard"><button><FontAwesomeIcon icon="fa-solid fa-arrow-left"/>  Back</button></a>
-                </div>
+                <a href="/dashboard"><button><FontAwesomeIcon icon="fa-solid fa-arrow-left"/>  Back</button></a>
+            </div>
             <main className="logincontainer">
                 <h1>Login</h1>
                 <div className="loginformcontainer">

@@ -28,7 +28,7 @@ function Profile() {
   
   const deleteAccount = async () => {
     try {
-      const response = await httpClient.delete(`//localhost:5000/users/${user?._id['$oid']}`)
+      const response = await httpClient.delete(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/users/${user?._id['$oid']}`)
       if (response.status === 200) {
         console.log(response.data.message)
         navigate('/dashboard')
@@ -48,8 +48,8 @@ function Profile() {
   let deleteAccountButton;
 
   if (username === currentUser?.username){
-    editProfileButton = <button onClick={editProfile}> Edit profile </button>
-    deleteAccountButton = <button onClick={deleteAccount}>Delete Account</button>
+    editProfileButton = <button className="signupbutton" onClick={editProfile}> Edit profile </button> 
+    deleteAccountButton = <button className="logoutbutton" onClick={deleteAccount}>Delete Account</button>
   }
   
   const profileView = (
@@ -70,8 +70,8 @@ function Profile() {
       <div className="profilecontainer">
         {editMode ? <EditProfile user={user}/> : profileView}
         <div className="profileprefbuttons">
-          {editMode ? <button onClick={cancelEdit}>Cancel</button> : <button onClick={editProfile}> Edit profile </button>}
-          {editMode ? <div></div> : <button onClick={deleteAccount}>Delete Account</button>}
+          {editMode ? <button className="signupbutton" onClick={cancelEdit}>Cancel</button> : editProfileButton }
+          {editMode ? <div></div> : deleteAccountButton }
         </div>
       </div>
   </div>
