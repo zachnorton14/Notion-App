@@ -29,7 +29,7 @@ export default function EditProfile(props) {
       )
     
       let editUsername = (
-        <div>
+        <div className="editusernamecontainer">
           <input
             type="text"
             defaultValue={currentUser.username}
@@ -44,7 +44,7 @@ export default function EditProfile(props) {
       )
     
       let editBio = (
-        <div>
+        <div className='editbiocontainer'>
           <input
             type="text"
             defaultValue={currentUser.bio}
@@ -84,7 +84,9 @@ export default function EditProfile(props) {
             {editBio}
           </div>
         </div>
-        <button className="loginbutton" onClick={confirmEdit}>Confirm</button>
+        <div className="confirmeditprofile">
+          <button className="loginbutton" onClick={confirmEdit}>Confirm</button>
+        </div>
     </div>
   )
 }

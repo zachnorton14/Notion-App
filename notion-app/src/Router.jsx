@@ -11,9 +11,9 @@ import Profile from './components/Profile';
 import FolderView from './components/FolderView';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faArrowLeft, faPlus, faFolder, faFile, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faPlus, faFolder, faFile, faTriangleExclamation, faFolderOpen, faChevronRight, faFileLines} from '@fortawesome/free-solid-svg-icons'
 
-  library.add(fab, faArrowLeft, faPlus, faFolder, faFile, faTriangleExclamation)
+  library.add(fab, faArrowLeft, faPlus, faFolder, faFile, faTriangleExclamation, faFolderOpen, faChevronRight, faFileLines)
 
 function App() {
 

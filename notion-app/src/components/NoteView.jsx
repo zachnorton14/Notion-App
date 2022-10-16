@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { CurrentUser } from '../contexts/CurrentUser'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import httpClient from '../httpClient'
@@ -13,6 +13,9 @@ function NoteView() {
     
     const [ editMode, setEditMode ] = useState(false)
     const [ editingContent, setEditingContent ] = useState(false)
+    const [ redirect, setRedirect ] = useState({
+
+    })
     
     const navigate = useNavigate()
     
@@ -26,12 +29,16 @@ function NoteView() {
         description: `${note.description}`,
     })
 
-    const back = async() => {
+    const back = async(conditional) => {
         try { 
             const response = await httpClient.get(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/users/${note.creator}`)
             if (response.status === 200) {
                 console.log(response.data.message)
-                navigate(`/dashboard/folder/${folder._id['$oid']}`, {state: { note: note, folder: folder, user: response.data.user }})
+                if (conditional === true ) {
+                    setRedirect({ note: note, folder: folder, user: response.data.user })
+                } else {
+                    navigate(`/dashboard/folder/${folder._id['$oid']}`, {state: { note: note, folder: folder, user: response.data.user }})
+                }
             }
         } catch (error){
             if (error.response.status === 401) {
@@ -40,6 +47,14 @@ function NoteView() {
             }
         }
         
+    }
+
+    useEffect(() => {
+        back(true)
+    }, [])
+    
+    const dashboard = () => {
+        navigate('/dashboard')
     }
 
     const getProfile = async () => {
@@ -113,12 +128,13 @@ function NoteView() {
           }
     }
 
-
     const htmlObject = document.createElement('div')
     htmlObject.innerHTML = note.content
 
     const editContent = () => {
-        setEditingContent(true)
+        if (currentUser?.username === note.creator){
+            setEditingContent(true)
+        }
     }
     
     const cancelEditingContent = () => {
@@ -136,34 +152,63 @@ function NoteView() {
     let confirmButton;
     let editButton;
     let deleteButton;
-    let editContentButton;
+    let dynamicStyling;
+
 
     if (currentUser?.username === note.creator){
-        editButton = <button onClick={editNote}>Edit</button>
-        deleteButton = <button onClick={deleteNote}>Delete</button>
-        editContentButton = <button onClick={editContent}>Start Editing</button>
+        editButton = <button className="signupbutton" onClick={editNote}>Edit</button>
+        deleteButton = <button className="logoutbutton" onClick={deleteNote}>Delete</button>
         confirmButton = <button onClick={confirmEdit}>Confirm</button>
+    }
+
+    if (currentUser?.username !== note.creator){
+        dynamicStyling = {
+            backgroundColor: 'white'
+        }
+    }
+
+    let notecontent = (
+        <div style={dynamicStyling} onClick={editContent} className="notecontent" dangerouslySetInnerHTML={{__html: note.content}}></div>
+    )
+
+    if ( note.content == ''){
+        notecontent = <p className="notecontent" style={{ boxShadow: 'none', textAlign: 'center'}} onClick={editContent}>Nothing has been jotted down yet...</p>
     }
 
     return (
         <div className="container">
-            <NavBar />
-            <div className="backbutton">
-                <button onClick={back}><FontAwesomeIcon icon="fa-solid fa-arrow-left" />  Back</button>
+            <NavBar action={`/dashboard/folder/${folder._id['$oid']}`} state={redirect} />
+            <div className="sitepositionindicator">
+                <p><a onClick={dashboard}>Dashboard</a></p>
+                <div><FontAwesomeIcon icon="fa-solid fa-chevron-right" /> </div>
+                <p><a onClick={back}>Folder: {folder.name}</a></p>
+                <div><FontAwesomeIcon icon="fa-solid fa-chevron-right" /> </div>
+                <p>Note: {note.name}</p>
             </div>
             <div className="noteviewcontainer">
-                {editMode ? editName : <h1>{note.name}</h1>}
-                <h4>{folder.name}</h4>
+                <div className="noteheader">
+                    <div className="notename">
+                        <div><FontAwesomeIcon icon="fa-solid fa-file-lines" /></div>
+                        {editMode ? editName : <h1>{note.name}</h1>}
+                    </div>
+                    <div className="noteprefbuttons">
+                        {editMode ? <button className='signupbutton' onClick={cancelEdit}>Cancel</button> : editButton}
+                        {editMode ? <button className='loginbutton' onClick={confirmEdit}>Confirm</button> : deleteButton}
+                    </div>
+                </div>
+                <h5>{folder.name}</h5>
                 <h2 onClick={getProfile}>{note.creator}</h2>
-                {editMode ? editDescription : <h4>{note.description}</h4>}
-                {editMode ? <button onClick={confirmEdit}>Confirm</button> : <p></p>}
-                {editMode ? <button onClick={cancelEdit}>Cancel</button> : editButton}
-                {deleteButton}
+                <div className="descriptioncontainer">
+                    <div className="spacer"><div className="verticalbar"></div></div>
+                    {editMode ? editDescription : <h4>{note.description}</h4>}
+                </div>
                 <hr/>
-                {editingContent ? <TextEditor note={note}/> : <br/>}
-                <div className="editcontentsectionwarning">
-                    {editingContent? <button onClick={cancelEditingContent}>Cancel</button> : editContentButton}
-                    {note.content === undefined ? <p>Nothing has been jotted down yet...</p>: <div dangerouslySetInnerHTML={{__html: note.content}}></div>}
+                <div className="notecontentcontainer">
+                    <div className="contentheader">
+                        {note.content == '' ? <div></div> : note.name}
+                        <div>{editingContent ? <p onClick={cancelEditingContent}>Cancel Edit</p> : <div></div>}</div>
+                    </div>
+                    {editingContent ? <TextEditor note={note}/> : notecontent }
                 </div>
             </div>
         </div>

@@ -3,8 +3,9 @@ import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CurrentUser } from '../contexts/CurrentUser'
 import httpClient from '../httpClient'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function NavBar() {
+function NavBar(props) {
 
     const { currentUser } = useContext(CurrentUser)
 
@@ -13,6 +14,20 @@ function NavBar() {
     const logout = async () => {
         sessionStorage.removeItem("user");
         window.location.reload()
+    }
+
+    const back = () => {
+        navigate(`${props.action}`, { state: props.state})
+    }
+
+    let backbutton = (
+        <div className="backbutton">
+            <button onClick={back}><FontAwesomeIcon icon="fa-solid fa-arrow-left" />  Back</button>
+        </div>
+    )
+
+    if (props.action === undefined){
+        backbutton = <div></div>
     }
 
     let loginActions;
@@ -27,13 +42,14 @@ function NavBar() {
                     <img className="pnavrofilepicture" src={currentUser?.profile_picture} style={{width: '30px', height: '30px'}}></img>
                     <p style={{ margin: 0 }}>{currentUser.username}</p>
                 </div>
-                <button onClick={logout}>Logout</button>
+                <button className="logoutbutton" onClick={logout}>Logout</button>
             </div>
         )
     }
 
     return (
         <nav>
+            {backbutton}
             {loginActions}
         </nav>
     )

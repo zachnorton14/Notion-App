@@ -24,8 +24,11 @@ function Dashboard() {
     let noPublishedFolders = <p className="nopublishedfolders">You haven't published any folders yet. To do so, view the draft folder you would like to publish.</p>
     let noPublicFolders = <p className="nopublicfolders">Hmmm... it appears there's no folders to display here.</p>
 
-    console.log(currentUser['_id']['$oid'])
-    // console.log(JSON.parse(sessionStorage.getItem('user'))._id['$oid'])
+   
+    // const user_id = currentUser._id['$oid']
+    // let user_id;
+
+    const user_id = JSON.parse(sessionStorage.getItem('user'))?._id['$oid']
 
     let dynamicHeader = (
         <div className="notloggedinheader">
@@ -65,7 +68,7 @@ function Dashboard() {
             return (
                 <div className={`publicfolder${index + 1}`} key={index} id="folder">
                     <FontAwesomeIcon icon="fa-solid fa-folder" />
-                    <button onClick={redirect}>{item.name}</button>
+                    <button onClick={redirect}>{item.name}<a style={{float: 'right', color: '#969696', marginRight: '10px'}}>{item.creator}</a></button>
                 </div>
             )
         })
@@ -135,7 +138,7 @@ function Dashboard() {
     useEffect(() => {
         const getUsersFolders = async () => {
             try {
-                const response = await httpClient.get(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/user/${currentUser['_id']['$oid']}/folders`)
+                const response = await httpClient.get(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/user/${user_id}/folders`)
                 if (response.status === 200) {
                     console.log(response.data.message)
                     setPersonalPublishedFolders(response.data.folders.filter(element => element.is_published))
@@ -150,9 +153,12 @@ function Dashboard() {
                 } else { console.log(error) }
                 
             }
-        }
+
+        } 
         getUsersFolders()
     }, [])
+        
+
     if (currentUser !== null){
 
         dynamicHeader = (
@@ -188,10 +194,7 @@ function Dashboard() {
 
     return (
         <div className="container">
-            <NavBar/>
-            <div className="backbutton">
-                <a href="/"><button><FontAwesomeIcon icon="fa-solid fa-arrow-left"/>  Back</button></a>
-            </div>
+            <NavBar action={'/'}/>
             <div className="dashboardcontainer">
                 <main>
                     <div className="dashboardtitlecontainer">

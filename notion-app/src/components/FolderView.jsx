@@ -37,6 +37,9 @@ function FolderView() {
             )
     })
 
+    const back = () => {
+        navigate('/dashboard')
+    }
 
     const createNote = async () => {
         try {
@@ -56,7 +59,6 @@ function FolderView() {
     const getProfile = async () => {
         try { 
             const response = await httpClient.get(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/users/${folder.creator}`)
-            console.log(response.data)
             if (response.status === 200) {
                 console.log(response.data.message)
                 navigate(`/profile/${response.data.user._id['$oid']}`, { state: { user: response.data.user }})
@@ -73,7 +75,6 @@ function FolderView() {
     const getNotes = async () => {
         try {
             const response = await httpClient.get(`http://iarchiveapp-env.eba-ezit6mbr.us-east-1.elasticbeanstalk.com/folder/${folder_id}/note`)
-            console.log(response)
             if (response.status === 200) {
               	console.log(response.data.message)
 				setNotes(response.data.notes)
@@ -160,16 +161,22 @@ function FolderView() {
             )
         }
     }
-
+    
   return (
     <div className="container">
-        <NavBar />
-        <div className="backbutton">
-            <a href="/dashboard"><button><FontAwesomeIcon icon="fa-solid fa-arrow-left" />  Back</button></a>
+        <NavBar action={'/dashboard'}/>
+        <div className="sitepositionindicator">
+            <p><a onClick={back}>Dashboard</a></p>
+            <div><FontAwesomeIcon icon="fa-solid fa-chevron-right" /> </div>
+            <p>Folder: {folder.name}</p>
         </div>
         <div className="folderviewcontainer">
             <div className="foldertitle">
-                { editMode ? <EditFolder user={user} folder={folder}/> : <h1>{folder.name}</h1> }
+                <div className="foldername">
+                    <div><FontAwesomeIcon icon="fa-solid fa-folder-open" /></div>
+                    { editMode ? <EditFolder user={user} folder={folder}/> : <h1>{folder.name}</h1> }
+                    
+                </div>
                 <div className="folderprefbuttons">
                     { editMode ? <button className="signupbutton" onClick={cancelEdit}>Cancel</button> : editButton }
                     { editMode ? <div style={{ float: 'center'}}></div> : deleteButton }
